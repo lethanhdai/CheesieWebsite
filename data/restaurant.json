@@ -1,0 +1,35 @@
+{
+  "name": "Cheesie - Tacos and burger",
+  "identity": "Cheesie Station",
+  "language": "vi",
+  "currency": "VND",
+  "address": "102 Đ. Lê Lai, Ninh Kiều, Cần Thơ, Vietnam",
+  "phoneDisplay": "078 878 6283",
+  "phone": "0788786283",
+  "email": "cheesieburgersandtacos@gmail.com",
+  "openingHours": {
+    "from": "09:30",
+    "to": "22:30",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "note": "Opening interval supplied by owner. Days of week / holidays not separately confirmed."
+  },
+  "links": {
+    "facebook": "https://www.facebook.com/profile.php?id=61560992384243",
+    "shopeeFood": "https://shopeefood.vn/can-tho/cheesie-tacos-burger-le-lai",
+    "grabFood": "https://food.grab.com/vn/vi/restaurant/cheesie-l%C3%AA-lai-delivery/5-C72BC3LUTTU3G2"
+  },
+  "design": {
+    "red": "#6a1b20",
+    "silver": "#c7cdd1",
+    "graphite": "#252c30",
+    "background": "#eef0f1",
+    "font": "Be Vietnam Pro",
+    "fontLocation": "prototype/assets/fonts",
+    "reference": "references/approved-prototype.png"
+  },
+  "ordering": {
+    "mode": "external-channel-handoff",
+    "directOrderSubmission": false,
+    "automaticMarketplaceCartSync": false
+  }
+}
