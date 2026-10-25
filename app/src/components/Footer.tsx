@@ -14,7 +14,9 @@ export const Footer: React.FC<FooterProps> = ({ onViewOriginalMenu }) => {
       <button type="button" id="footer-menu" onClick={onViewOriginalMenu}>
         Menu gốc ↗
       </button>
-      <span>© 2026 Cheesie</span>
+      <span className="footer-credits">
+        © 2026 Cheesie · <span className="font-semibold tracking-wide text-cheesie-graphite/90">Design by Daniel</span>
+      </span>
     </footer>
   );
 };

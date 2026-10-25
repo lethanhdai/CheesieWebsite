@@ -9,14 +9,14 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ bagCount, onOpenBag }) => {
   return (
     <header className="sticky top-0 z-50 w-full bg-cheesie-surface/95 backdrop-blur-md border-b border-cheesie-line shadow-station-sm transition-all duration-200">
-      <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+      <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between gap-4 sm:gap-6">
         {/* Logo Wordmark */}
         <a
           className="wordmark group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cheesie-burgundy rounded-lg transition-transform active:scale-95"
           href="#home"
           aria-label="Cheesie trang chủ"
         >
-          <div className="relative w-28 sm:w-34 h-11 sm:h-12 overflow-hidden rounded-md bg-cheesie-burgundy border border-cheesie-burgundy-light shadow-station-sm flex items-center justify-center p-1">
+          <div className="relative w-36 sm:w-44 md:w-48 h-13 sm:h-15 md:h-16 overflow-hidden rounded-lg bg-cheesie-burgundy border border-cheesie-burgundy-light/60 shadow-station-sm flex items-center justify-center p-0.5">
             <img
               src="/assets/logo.jpg"
               alt="Cheesie — Burgers & Tacos"
@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({ bagCount, onOpenBag }) => {
         {/* Navigation */}
         <nav
           aria-label="Điều hướng chính"
-          className="hidden md:flex items-center gap-8 text-xs font-semibold text-cheesie-graphite"
+          className="hidden md:flex items-center gap-6 lg:gap-8 text-xs font-semibold text-cheesie-graphite"
         >
           <a
             href="#menu"

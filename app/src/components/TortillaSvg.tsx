@@ -158,7 +158,39 @@ export const TortillaSvg: React.FC<TortillaSvgProps> = ({ size, selected }) => {
   // Food elements & Sauces
   const foodElements: React.ReactElement[] = [];
   const sauceElements: React.ReactElement[] = [];
-  let itemIndex = 0;
+  let foodItemIndex = 0;
+  let sauceItemIndex = 0;
+
+  // Harmonious, chef-crafted sauce drizzle curves focused over the central fillings
+  const SAUCE_PATTERNS = [
+    {
+      d: 'M 180 195 C 220 178, 250 215, 280 205 C 315 195, 330 235, 295 260 C 260 285, 280 320, 320 315',
+      gloss: 'M 182 194 C 221 177, 249 213, 279 203 C 313 194, 328 233, 294 258 C 261 283, 279 317, 318 313',
+      dots: [
+        { cx: 172, cy: 198, r: 2.8 },
+        { cx: 326, cy: 318, r: 2.8 },
+        { cx: 242, cy: 262, r: 3.2 },
+      ],
+    },
+    {
+      d: 'M 215 180 C 195 220, 235 250, 220 280 C 250 245, 290 275, 275 320 C 300 290, 320 260, 310 215',
+      gloss: 'M 216 182 C 197 219, 234 248, 221 278 C 249 244, 288 273, 274 317 C 298 288, 317 259, 308 217',
+      dots: [
+        { cx: 210, cy: 172, r: 2.8 },
+        { cx: 282, cy: 328, r: 3.2 },
+        { cx: 318, cy: 210, r: 2.8 },
+      ],
+    },
+    {
+      d: 'M 190 235 C 225 210, 260 265, 295 235 C 320 218, 320 275, 280 290 C 245 305, 215 275, 195 255',
+      gloss: 'M 191 234 C 224 209, 259 263, 294 234 C 318 217, 318 273, 279 288 C 246 303, 216 274, 196 254',
+      dots: [
+        { cx: 182, cy: 236, r: 2.8 },
+        { cx: 304, cy: 230, r: 2.8 },
+        { cx: 276, cy: 298, r: 3.2 },
+      ],
+    },
+  ];
 
   for (const item of INGREDIENTS) {
     const amount = selected[item.id] || 0;
@@ -166,39 +198,60 @@ export const TortillaSvg: React.FC<TortillaSvgProps> = ({ size, selected }) => {
 
     for (let portion = 0; portion < amount; portion++) {
       if (item.kind === 'sauce' || item.sauceId) {
-        const off = (itemIndex * 8) % 55;
+        const pattern = SAUCE_PATTERNS[sauceItemIndex % SAUCE_PATTERNS.length];
+        const isMainSauce = item.kind === 'sauce';
+        const strokeWidth = isMainSauce ? 6.5 : 5;
+
         sauceElements.push(
           <g key={`sauce-${item.id}-${portion}`} className="food-piece">
+            {/* Base sauce ribbon */}
             <path
-              d={`M${143 + off} 170Q340 ${165 + off} 170 210T335 255T165 302T330 340`}
+              d={pattern.d}
               stroke={item.color}
-              strokeWidth={item.kind === 'sauce' ? 8 : 5}
+              strokeWidth={strokeWidth}
               strokeLinecap="round"
+              strokeLinejoin="round"
               fill="none"
-              opacity=".83"
-              transform={`rotate(${(itemIndex * 24) % 80 - 35} 250 250)`}
+              opacity="0.94"
             />
+            {/* Specular gloss highlight along the ridge */}
+            <path
+              d={pattern.gloss}
+              stroke="#FFFFFF"
+              strokeWidth={isMainSauce ? 1.8 : 1.4}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+              opacity="0.4"
+            />
+            {/* Appetizing sauce droplets */}
+            {pattern.dots.map((dot, dIdx) => (
+              <g key={`dot-${dIdx}`}>
+                <circle cx={dot.cx} cy={dot.cy} r={dot.r} fill={item.color} opacity="0.94" />
+                <circle cx={dot.cx - 0.7} cy={dot.cy - 0.7} r={dot.r * 0.45} fill="#FFFFFF" opacity="0.5" />
+              </g>
+            ))}
           </g>
         );
-        itemIndex++;
+        sauceItemIndex++;
       } else {
         for (let k = 0; k < 5; k++) {
-          const a = (itemIndex * 5 + k) * 2.39996;
-          const r = Math.sqrt(((itemIndex * 5 + k) % 40) + 1) * 21;
+          const a = (foodItemIndex * 5 + k) * 2.39996;
+          const r = Math.sqrt(((foodItemIndex * 5 + k) % 40) + 1) * 21;
           const x = 250 + Math.cos(a) * r;
           const y = 250 + Math.sin(a) * r;
           foodElements.push(
             <g
               key={`food-${item.id}-${portion}-${k}`}
               transform={`translate(${x - 25} ${y - 25}) rotate(${
-                (itemIndex * 49 + k * 73) % 360
+                (foodItemIndex * 49 + k * 73) % 360
               } 25 25) scale(.85)`}
             >
               <g className="food-piece">{renderIngredientSvgPiece(item.icon, item.color)}</g>
             </g>
           );
         }
-        itemIndex++;
+        foodItemIndex++;
       }
     }
   }
