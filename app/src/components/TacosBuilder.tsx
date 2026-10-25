@@ -129,7 +129,8 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
 
   return (
     <section className="builder-section" id="builder">
-      <div className="section-title">
+      <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="section-title">
         <div>
           <p className="eyebrow">PLATFORM 02 / TACOS EXPRESS</p>
           <h2>
@@ -442,6 +443,7 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
             Topping thêm tính riêng.
           </p>
         </div>
+      </div>
       </div>
     </section>
   );

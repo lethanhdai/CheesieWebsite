@@ -9,7 +9,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ bagCount, onOpenBag }) => {
   return (
     <header className="sticky top-0 z-50 w-full bg-cheesie-surface/95 backdrop-blur-md border-b border-cheesie-line shadow-station-sm transition-all duration-200">
-      <div className="max-w-layout mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+      <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
         {/* Logo Wordmark */}
         <a
           className="wordmark group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cheesie-burgundy rounded-lg transition-transform active:scale-95"
