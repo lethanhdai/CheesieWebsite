@@ -1,15 +1,53 @@
-/* Cheesie Station — Red Line / Silver Carriage Design System */
-:root {
-  --silver: #c7cdd1;
-  --steel: #7c898f;
-  --graphite: #252c30;
-  --red: #6a1b20;
-  --red-hover: #842a31;
-  --cream: #eef0f1;
-  --ink: #252c30;
-  --line: #b6c0c5;
-  --muted: #59676f;
-  --yellow: #d5d9dc;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cheesie Station — Refined Edition Design System */
+@layer base {
+  :root {
+    --background: 38 22% 94%; /* #F4F1EC warm ivory */
+    --foreground: 207 11% 16%; /* #24292D graphite */
+
+    --card: 45 43% 98%; /* #FBFAF7 surface */
+    --card-foreground: 207 11% 16%;
+
+    --popover: 45 43% 98%;
+    --popover-foreground: 207 11% 16%;
+
+    --primary: 356 59% 26%; /* #6A1B20 burgundy */
+    --primary-foreground: 45 43% 98%;
+    --primary-hover: 356 62% 21%; /* #541418 */
+
+    --secondary: 38 18% 89%; /* #EAE6DF */
+    --secondary-foreground: 207 11% 16%;
+
+    --muted: 38 18% 89%;
+    --muted-foreground: 201 8% 45%; /* #69747A */
+
+    --accent: 38 18% 89%;
+    --accent-foreground: 356 59% 26%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 39 18% 81%; /* #D8D2C7 */
+    --input: 39 18% 81%;
+    --ring: 356 59% 26%;
+
+    --radius: 0.75rem;
+
+    /* Legacy tokens preserved for components outside Phase 01 */
+    --silver: #c7cdd1;
+    --steel: #7c898f;
+    --graphite: #24292d;
+    --red: #6a1b20;
+    --red-hover: #541418;
+    --cream: #f4f1ec;
+    --ink: #24292d;
+    --line: #d8d2c7;
+    --muted-color: #69747a;
+    --yellow: #d5d9dc;
+  }
 }
 
 * {
@@ -23,8 +61,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
-  color: var(--red);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif;
   font-size: 13px;
   font-synthesis: none;
