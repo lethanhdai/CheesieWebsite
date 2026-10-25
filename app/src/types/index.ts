@@ -73,6 +73,7 @@ export interface CartTacosSelection {
   size: TacosSizeKey;
   selected: SelectedIngredients;
   note: string;
+  hasVegetables?: boolean;
 }
 
 export interface CartItem {

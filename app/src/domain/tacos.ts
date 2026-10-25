@@ -237,14 +237,16 @@ export function formatSelectedNames(
 export function buildTacosDetailsSummary(
   size: TacosSizeKey,
   selected: SelectedIngredients,
-  note?: string
+  note?: string,
+  hasVegetables: boolean = true
 ): string {
   const sizeConfig = TACOS_SIZES[size];
   const proteinText = formatSelectedNames(selected, 'protein') || 'Chưa chọn';
   const sauceText = formatSelectedNames(selected, 'sauce') || 'Chưa chọn';
   const extraText = formatSelectedNames(selected, 'extra');
+  const vegText = hasVegetables ? 'Có rau' : 'Không rau';
 
-  let text = `Nhân: ${proteinText}. Sốt: ${sauceText}.`;
+  let text = `Rau: ${vegText}. Nhân: ${proteinText}. Sốt: ${sauceText}.`;
   if (sizeConfig.base.length > 0) {
     text += ` Đã gồm: ${sizeConfig.base.join(', ')}.`;
   }
@@ -260,10 +262,11 @@ export function buildTacosDetailsSummary(
 export function generateTacosDeduplicationKey(
   size: TacosSizeKey,
   selected: SelectedIngredients,
-  note: string = ''
+  note: string = '',
+  hasVegetables: boolean = true
 ): string {
   const sortedEntries = Object.entries(selected)
     .filter(([, v]) => v > 0)
     .sort(([a], [b]) => a.localeCompare(b));
-  return `taco-${size}-${JSON.stringify(sortedEntries)}-${note.trim().toLowerCase()}`;
+  return `taco-${size}-veg:${hasVegetables}-${JSON.stringify(sortedEntries)}-${note.trim().toLowerCase()}`;
 }

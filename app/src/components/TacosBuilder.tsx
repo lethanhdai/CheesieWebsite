@@ -20,6 +20,8 @@ interface TacosBuilderProps {
   selected: SelectedIngredients;
   note: string;
   folded: boolean;
+  hasVegetables?: boolean;
+  onVegetablesChange?: (val: boolean) => void;
   onSizeChangeRequest: (nextSize: TacosSizeKey) => void;
   onIngredientAdd: (id: string) => void;
   onIngredientRemove: (id: string) => void;
@@ -36,6 +38,8 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
   selected,
   note,
   folded,
+  hasVegetables = true,
+  onVegetablesChange,
   onSizeChangeRequest,
   onIngredientAdd,
   onIngredientRemove,
@@ -238,7 +242,7 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
               <span className="board-label">CHEESIE / MAKE IT YOURS</span>
 
               <div className="tortilla-wrap" id="tortilla-wrap">
-                <TortillaSvg size={size} selected={selected} />
+                <TortillaSvg size={size} selected={selected} hasVegetables={hasVegetables} />
 
                 <div
                   className="board-message"
@@ -404,6 +408,64 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
               })}
             </div>
 
+            {/* Tùy chọn Rau trong bánh */}
+            <div className="mb-5 rounded-xl border border-cheesie-line bg-cheesie-surface p-3.5 sm:p-4 shadow-station-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-black uppercase tracking-wider text-cheesie-burgundy">
+                      Rau trong bánh
+                    </span>
+                    <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-emerald-600/50 text-emerald-800 bg-emerald-50 font-bold">
+                      Tươi ngon
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-cheesie-muted mt-0.5">
+                    Xà lách và bắp cải thái sợi
+                  </p>
+                </div>
+
+                {/* Phân đoạn: Có rau / Không rau */}
+                <div
+                  role="radiogroup"
+                  aria-label="Tùy chọn rau trong bánh"
+                  className="inline-flex p-1 bg-cheesie-surface-muted rounded-lg border border-cheesie-line self-start sm:self-auto"
+                >
+                  <button
+                    type="button"
+                    role="radio"
+                    id="veggies-yes"
+                    aria-checked={hasVegetables}
+                    onClick={() => onVegetablesChange?.(true)}
+                    className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all flex items-center gap-1.5 min-h-[36px] ${
+                      hasVegetables
+                        ? 'bg-cheesie-burgundy text-cheesie-surface shadow-sm'
+                        : 'text-cheesie-graphite hover:text-cheesie-burgundy'
+                    }`}
+                  >
+                    <span className={hasVegetables ? 'text-cheesie-gold' : 'text-emerald-700'}>🥗</span>
+                    Có rau
+                  </button>
+
+                  <button
+                    type="button"
+                    role="radio"
+                    id="veggies-no"
+                    aria-checked={!hasVegetables}
+                    onClick={() => onVegetablesChange?.(false)}
+                    className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all flex items-center gap-1.5 min-h-[36px] ${
+                      !hasVegetables
+                        ? 'bg-cheesie-burgundy text-cheesie-surface shadow-sm'
+                        : 'text-cheesie-graphite hover:text-cheesie-burgundy'
+                    }`}
+                  >
+                    <span>🚫</span>
+                    Không rau
+                  </button>
+                </div>
+              </div>
+            </div>
+
             {/* Khung tóm tắt lựa chọn */}
             <div className="selection">
               {isEditing && (
@@ -431,6 +493,12 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
                 <div className="selection-row">
                   <span>Size {size}</span>
                   <span>{formatVND(sizeConfig.price)}</span>
+                </div>
+                <div className="selection-row">
+                  <span>Rau</span>
+                  <span className="font-semibold text-cheesie-graphite">
+                    {hasVegetables ? 'Có rau' : 'Không rau'}
+                  </span>
                 </div>
                 <div className="selection-row">
                   <span>Nhân</span>

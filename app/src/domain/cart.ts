@@ -62,6 +62,7 @@ export function sanitizeAndVerifyCartItem(raw: unknown): CartItem | null {
 
     // Luôn tính lại giá theo công thức domain hiện tại, không tin giá lưu client
     const verifiedUnitPrice = computeTacosPrice(size, selected);
+    const hasVegetables = item.tacosConfig.hasVegetables !== false;
 
     return {
       id,
@@ -75,6 +76,7 @@ export function sanitizeAndVerifyCartItem(raw: unknown): CartItem | null {
         size,
         selected,
         note: typeof note === 'string' ? note.slice(0, 200) : '',
+        hasVegetables,
       },
     };
   }

@@ -47,6 +47,7 @@ export const App: React.FC = () => {
   const [size, setSize] = useState<TacosSizeKey>('M');
   const [selected, setSelected] = useState<SelectedIngredients>({});
   const [tacoNote, setTacoNote] = useState<string>('');
+  const [hasVegetables, setHasVegetables] = useState<boolean>(true);
   const [folded, setFolded] = useState<boolean>(false);
   const [editingCartItemId, setEditingCartItemId] = useState<string | null>(null);
 
@@ -137,6 +138,7 @@ export const App: React.FC = () => {
   const handleConfirmReset = () => {
     setSelected({});
     setTacoNote('');
+    setHasVegetables(true);
     setFolded(false);
     setEditingCartItemId(null);
     setIsResetConfirmOpen(false);
@@ -146,8 +148,8 @@ export const App: React.FC = () => {
   const handleAddTacosToCart = () => {
     if (!isTacosReady(size, selected)) return;
 
-    const key = generateTacosDeduplicationKey(size, selected, tacoNote);
-    const details = buildTacosDetailsSummary(size, selected, tacoNote);
+    const key = generateTacosDeduplicationKey(size, selected, tacoNote, hasVegetables);
+    const details = buildTacosDetailsSummary(size, selected, tacoNote, hasVegetables);
     const unitPrice = computeTacosPrice(size, selected);
 
     if (editingCartItemId) {
@@ -165,6 +167,7 @@ export const App: React.FC = () => {
                   size,
                   selected: { ...selected },
                   note: tacoNote,
+                  hasVegetables,
                 },
               }
             : item
@@ -202,6 +205,7 @@ export const App: React.FC = () => {
             size,
             selected: { ...selected },
             note: tacoNote,
+            hasVegetables,
           },
         };
         return [...prevCart, newItem];
@@ -270,6 +274,7 @@ export const App: React.FC = () => {
     setSize(item.tacosConfig.size);
     setSelected({ ...item.tacosConfig.selected });
     setTacoNote(item.tacosConfig.note || '');
+    setHasVegetables(item.tacosConfig.hasVegetables !== false);
     setFolded(false);
     setEditingCartItemId(item.id);
     setIsCartOpen(false);
@@ -312,6 +317,8 @@ export const App: React.FC = () => {
           selected={selected}
           note={tacoNote}
           folded={folded}
+          hasVegetables={hasVegetables}
+          onVegetablesChange={setHasVegetables}
           onSizeChangeRequest={handleSizeChangeRequest}
           onIngredientAdd={handleIngredientAdd}
           onIngredientRemove={handleIngredientRemove}
