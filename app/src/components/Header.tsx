@@ -9,18 +9,18 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ bagCount, onOpenBag }) => {
   return (
     <header className="sticky top-0 z-50 w-full bg-cheesie-surface/95 backdrop-blur-md border-b border-cheesie-line shadow-station-sm transition-all duration-200">
-      <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between gap-4 sm:gap-6">
-        {/* Logo Wordmark */}
+      <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+        {/* Logo Wordmark — Matches Footer Wordmark Proportions & Readability */}
         <a
-          className="wordmark group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cheesie-burgundy rounded-lg transition-transform active:scale-95"
+          className="wordmark group flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cheesie-burgundy rounded-lg transition-transform active:scale-95"
           href="#home"
           aria-label="Cheesie trang chủ"
         >
-          <div className="relative w-36 sm:w-44 md:w-48 h-13 sm:h-15 md:h-16 overflow-hidden rounded-lg bg-cheesie-burgundy border border-cheesie-burgundy-light/60 shadow-station-sm flex items-center justify-center p-0.5">
+          <div className="relative w-32 sm:w-36 md:w-40 h-12 sm:h-13 md:h-14 overflow-hidden rounded-md bg-[#6A1B20] border border-[#8E3E42] shadow-station-sm">
             <img
               src="/assets/logo.jpg"
               alt="Cheesie — Burgers & Tacos"
-              className="w-full h-full object-contain"
+              className="absolute w-[150px] sm:w-[170px] md:w-[185px] h-[150px] sm:h-[170px] md:h-[185px] max-w-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-contain pointer-events-none"
             />
           </div>
         </a>
