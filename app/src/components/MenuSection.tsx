@@ -78,7 +78,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
         {/* Menu Category Filter Toolbar */}
         <div className="menu-toolbar flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div
-            className="category-tabs flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none"
+            className="category-tabs inline-flex items-center gap-1.5 p-1 bg-cheesie-surface-muted/50 rounded-xl border border-cheesie-line/60 overflow-x-auto max-w-full scrollbar-none"
             role="group"
             aria-label="Nhóm món ăn"
           >
@@ -88,10 +88,10 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                 <button
                   key={cat.key}
                   type="button"
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 select-none ${
+                  className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 select-none ${
                     isSelected
-                      ? 'bg-cheesie-burgundy text-cheesie-surface shadow-station-sm scale-[1.02]'
-                      : 'bg-cheesie-surface text-cheesie-graphite hover:bg-cheesie-surface-muted border border-cheesie-line hover:border-cheesie-burgundy/40'
+                      ? 'bg-cheesie-burgundy text-cheesie-surface shadow-sm'
+                      : 'text-cheesie-graphite hover:text-cheesie-burgundy hover:bg-cheesie-surface/70'
                   }`}
                   onClick={() => setActiveCategory(cat.key)}
                 >

@@ -2,7 +2,6 @@ import React from 'react';
 import { Plus } from 'lucide-react';
 import type { MenuItem } from '@/types';
 import { formatVND } from '@/domain/cart';
-import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
@@ -15,9 +14,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect }) => {
   const isTaco = item.id === 'taco';
 
   return (
-    <Card className="group flex flex-col justify-between overflow-hidden border border-cheesie-line bg-cheesie-surface hover:border-cheesie-burgundy/40 hover:shadow-station-hover transition-all duration-300">
+    <div className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-cheesie-line/60 bg-cheesie-surface hover:border-cheesie-burgundy/40 hover:shadow-station-card transition-all duration-300">
       {/* Visual Image / Artwork Area */}
-      <div className="relative w-full aspect-[4/3] bg-cheesie-surface-muted/70 overflow-hidden border-b border-cheesie-line/70">
+      <div className="relative w-full aspect-[4/3] bg-cheesie-surface-muted/60 overflow-hidden border-b border-cheesie-line/50">
         {item.image ? (
           <img
             src={`/assets/${item.image}`}
@@ -45,7 +44,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect }) => {
         {/* Feature Tag */}
         {item.tag && (
           <div className="absolute top-2.5 left-2.5 z-10">
-            <Badge variant="tag" className="text-[9px] px-2 py-0.5 tracking-wider">
+            <Badge variant="tag" className="text-[9px] px-2 py-0.5 tracking-wider bg-cheesie-surface/90 backdrop-blur-xs">
               {item.tag}
             </Badge>
           </div>
@@ -53,7 +52,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect }) => {
 
         {/* Subtle hover overlay */}
         <div
-          className="absolute inset-0 bg-cheesie-burgundy/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          className="absolute inset-0 bg-cheesie-burgundy/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           aria-hidden="true"
         />
       </div>
@@ -70,7 +69,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect }) => {
         </div>
 
         {/* Price & Add Action */}
-        <div className="flex items-center justify-between pt-3 border-t border-cheesie-line/60">
+        <div className="flex items-center justify-between pt-3 border-t border-cheesie-line/50">
           <div className="flex flex-col">
             {isTaco && (
               <span className="text-[10px] uppercase font-bold tracking-wider text-cheesie-muted">
@@ -86,7 +85,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect }) => {
             type="button"
             variant="default"
             size="iconSm"
-            className="dish-add w-8 h-8 rounded-full bg-cheesie-burgundy hover:bg-cheesie-burgundy-hover text-cheesie-surface shadow-station-sm hover:scale-110 active:scale-95 transition-all"
+            className="dish-add w-8 h-8 rounded-full bg-cheesie-burgundy hover:bg-cheesie-burgundy-hover text-cheesie-surface shadow-station-sm hover:scale-105 active:scale-95 transition-all"
             onClick={() => onSelect(item)}
             aria-label={`${isTaco ? 'Tự chọn' : 'Chọn'} ${item.name}`}
           >
@@ -94,6 +93,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect }) => {
           </Button>
         </div>
       </div>
-    </Card>
+    </div>
   );
 };

@@ -74,9 +74,9 @@ export const Hero: React.FC = () => {
 
           {/* Right Column: ~56% Prominent Landscape Image in Refined Railway Window */}
           <div className="w-full lg:w-[56%] flex justify-center">
-            <div className="relative w-full rounded-2xl lg:rounded-3xl p-2.5 sm:p-3 bg-gradient-to-b from-cheesie-surface via-cheesie-surface to-cheesie-surface-muted border border-cheesie-line shadow-station-md">
+            <div className="relative w-full rounded-2xl lg:rounded-3xl p-2 sm:p-2.5 bg-cheesie-surface border border-cheesie-line/80 shadow-station-md">
               {/* Refined Station Wayfinding Plaque */}
-              <div className="relative w-full h-8 sm:h-9 rounded-t-xl lg:rounded-t-2xl bg-cheesie-burgundy text-cheesie-surface flex items-center justify-between px-3 sm:px-4 text-[10px] font-bold tracking-widest mb-2 shadow-inner">
+              <div className="relative w-full h-8 sm:h-9 rounded-t-xl lg:rounded-t-2xl bg-cheesie-burgundy text-cheesie-surface flex items-center justify-between px-3.5 sm:px-4 text-[10px] font-bold tracking-widest mb-2 shadow-inner">
                 <div className="flex items-center gap-2">
                   <span className="bg-white/20 text-cheesie-surface text-[9px] px-1.5 py-0.5 rounded font-black">
                     01
@@ -90,7 +90,7 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Prominent Landscape Image Window (aspect 16:10 / 3:2) */}
-              <div className="relative w-full aspect-[3/2] sm:aspect-[16/10] overflow-hidden rounded-xl lg:rounded-2xl border border-cheesie-line/70">
+              <div className="relative w-full aspect-[3/2] sm:aspect-[16/10] overflow-hidden rounded-xl lg:rounded-2xl border border-cheesie-line/50">
                 <img
                   className="w-full h-full object-cover object-[center_55%] transition-transform duration-700 hover:scale-105"
                   src="/assets/feast.jpg"
@@ -138,12 +138,12 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* 3-Step Railway Timeline Guide — Full-width station track positioned cleanly below the Hero row */}
+        {/* 3-Step Railway Timeline Guide — Editorial station track positioned cleanly below the Hero row */}
         <div
-          className="mt-10 lg:mt-14 pt-6 sm:pt-8 border-t border-cheesie-line/80 relative"
+          className="mt-10 lg:mt-14 pt-6 sm:pt-8 border-t border-cheesie-line/70 relative"
           aria-label="3 bước tự cuốn tacos"
         >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-6">
             <div className="flex items-center gap-2">
               <Badge variant="station" className="text-[9px] px-2 py-0.5 font-bold">
                 LỘ TRÌNH TỰ CUỐN
@@ -157,47 +157,48 @@ export const Hero: React.FC = () => {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 relative">
+          {/* Lighter editorial inline station-route treatment with step numbers and subtle dividers */}
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-cheesie-line/60 bg-cheesie-surface/60 rounded-xl border border-cheesie-line/60">
             {/* Step 1 */}
-            <div className="flex items-center gap-3.5 p-3 sm:p-3.5 rounded-xl bg-cheesie-surface/90 border border-cheesie-line/80 shadow-station-sm">
-              <span className="w-8 h-8 rounded-full bg-cheesie-burgundy text-cheesie-surface font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
+            <div className="flex items-center gap-3.5 p-3.5 sm:p-4 group">
+              <span className="w-8 h-8 rounded-full bg-cheesie-burgundy text-cheesie-surface font-black text-xs flex items-center justify-center shrink-0 shadow-station-sm transition-transform group-hover:scale-105">
                 01
               </span>
               <div>
                 <strong className="block text-xs font-bold text-cheesie-graphite tracking-wider uppercase">
                   CHỌN SIZE
                 </strong>
-                <span className="text-[11px] text-cheesie-muted">
+                <span className="text-[11px] text-cheesie-muted block mt-0.5">
                   Từ S đến XXL tùy sức ăn
                 </span>
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="flex items-center gap-3.5 p-3 sm:p-3.5 rounded-xl bg-cheesie-surface/90 border border-cheesie-line/80 shadow-station-sm">
-              <span className="w-8 h-8 rounded-full bg-cheesie-burgundy text-cheesie-surface font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
+            <div className="flex items-center gap-3.5 p-3.5 sm:p-4 group">
+              <span className="w-8 h-8 rounded-full bg-cheesie-burgundy text-cheesie-surface font-black text-xs flex items-center justify-center shrink-0 shadow-station-sm transition-transform group-hover:scale-105">
                 02
               </span>
               <div>
                 <strong className="block text-xs font-bold text-cheesie-graphite tracking-wider uppercase">
                   THẢ NHÂN
                 </strong>
-                <span className="text-[11px] text-cheesie-muted">
+                <span className="text-[11px] text-cheesie-muted block mt-0.5">
                   Bò băm, gà giòn, xúc xích...
                 </span>
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="flex items-center gap-3.5 p-3 sm:p-3.5 rounded-xl bg-cheesie-surface/90 border border-cheesie-line/80 shadow-station-sm">
-              <span className="w-8 h-8 rounded-full bg-cheesie-burgundy text-cheesie-surface font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
+            <div className="flex items-center gap-3.5 p-3.5 sm:p-4 group">
+              <span className="w-8 h-8 rounded-full bg-cheesie-burgundy text-cheesie-surface font-black text-xs flex items-center justify-center shrink-0 shadow-station-sm transition-transform group-hover:scale-105">
                 03
               </span>
               <div>
                 <strong className="block text-xs font-bold text-cheesie-graphite tracking-wider uppercase">
                   THÊM SỐT
                 </strong>
-                <span className="text-[11px] text-cheesie-muted">
+                <span className="text-[11px] text-cheesie-muted block mt-0.5">
                   Cheese sauce, BBQ, cay nhẹ...
                 </span>
               </div>
