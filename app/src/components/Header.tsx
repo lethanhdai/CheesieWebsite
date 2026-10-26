@@ -80,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({
             : 'bg-cheesie-surface border-b border-cheesie-line/70'
         }`}
       >
-        <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-3 sm:gap-4">
+        <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-20 flex items-center justify-between gap-2.5 sm:gap-4">
           {/* Logo Wordmark */}
           <a
             className="wordmark group flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cheesie-burgundy rounded-lg transition-transform active:scale-95 shrink-0"
@@ -88,11 +88,11 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={(e) => handleLinkClick(e, 'home')}
             aria-label="Cheesie trang chủ"
           >
-            <div className="relative w-28 sm:w-36 md:w-40 h-11 sm:h-13 md:h-14 overflow-hidden rounded-md bg-[#6A1B20] border border-[#8E3E42] shadow-station-sm">
+            <div className="relative w-24 sm:w-36 md:w-40 h-9 sm:h-13 md:h-14 overflow-hidden rounded-md bg-[#6A1B20] border border-[#8E3E42] shadow-station-sm">
               <img
                 src="/assets/logo.jpg"
                 alt="Cheesie — Burgers & Tacos"
-                className="absolute w-[130px] sm:w-[170px] md:w-[185px] h-[130px] sm:h-[170px] md:h-[185px] max-w-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-contain pointer-events-none"
+                className="absolute w-[115px] sm:w-[170px] md:w-[185px] h-[115px] sm:h-[170px] md:h-[185px] max-w-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-contain pointer-events-none"
               />
             </div>
           </a>
@@ -134,10 +134,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Actions: Cart Button & Mobile Hamburger */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Bag Button */}
+            {/* Bag Button with minimum 44px hit target */}
             <button
               type="button"
-              className="bag-button group relative inline-flex items-center gap-2 bg-cheesie-surface hover:bg-cheesie-surface-muted text-cheesie-graphite font-bold text-xs h-11 px-3 sm:px-4 rounded-xl border border-cheesie-line shadow-station-sm hover:border-cheesie-burgundy/40 hover:text-cheesie-burgundy transition-all duration-200 active:scale-95"
+              className="bag-button group relative inline-flex items-center gap-1.5 sm:gap-2 bg-cheesie-surface hover:bg-cheesie-surface-muted text-cheesie-graphite font-bold text-xs h-10 sm:h-11 px-2.5 sm:px-4 rounded-xl border border-cheesie-line shadow-station-sm hover:border-cheesie-burgundy/40 hover:text-cheesie-burgundy transition-all duration-200 active:scale-95 after:content-[''] after:absolute after:-inset-1.5 sm:after:hidden"
               id="open-bag"
               onClick={onOpenBag}
               aria-label={`Mở túi đồ ngon, hiện có ${bagCount} món`}
@@ -156,7 +156,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Hamburger Toggle Button (min 44x44px touch target) */}
             <button
               type="button"
-              className="md:hidden relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-cheesie-surface border border-cheesie-line text-cheesie-graphite hover:text-cheesie-burgundy hover:bg-cheesie-surface-muted active:scale-95 transition-all duration-200"
+              className="md:hidden relative inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-cheesie-surface border border-cheesie-line text-cheesie-graphite hover:text-cheesie-burgundy hover:bg-cheesie-surface-muted active:scale-95 transition-all duration-200 after:content-[''] after:absolute after:-inset-1.5"
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Mở menu điều hướng"
               aria-expanded={isMobileMenuOpen}

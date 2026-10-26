@@ -75,10 +75,14 @@ describe('Phase 01 Visual QA & Responsive Integrity', () => {
     fireEvent.click(burgerTab);
     expect(screen.getByText('Burger gà phô mai')).toBeDefined();
 
-    // Chuyển sang Gà & khoai
-    const chickenTab = screen.getByRole('button', { name: /Gà & khoai/i });
+    // Chuyển sang Gà tender
+    const chickenTab = screen.getByRole('button', { name: /Gà tender/i });
     fireEvent.click(chickenTab);
     expect(screen.getByText('Gà tender 1 sốt')).toBeDefined();
+
+    // Chuyển sang Khoai
+    const friesTab = screen.getByRole('button', { name: /^Khoai$/i });
+    fireEvent.click(friesTab);
     expect(screen.getByText('Khoai truyền thống')).toBeDefined();
 
     // Chuyển sang Mì Ý

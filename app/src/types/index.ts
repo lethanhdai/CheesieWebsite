@@ -22,15 +22,30 @@ export interface Ingredient {
 
 export type SelectedIngredients = Record<string, number>;
 
+export type MenuItemCategory =
+  | 'tacos'
+  | 'burger'
+  | 'chicken'
+  | 'fries'
+  | 'pasta'
+  | 'combo'
+  | 'drinks';
+
 export interface MenuItem {
   id: string;
   name: string;
   price: number;
-  category: 'tacos' | 'burger' | 'chicken' | 'pasta' | 'drinks';
+  category: MenuItemCategory;
   image?: string;
   emoji?: string;
   tag?: string;
   desc: string;
+  comboItems?: string[];
+  options?: {
+    portion?: string;
+    sauceCount?: number;
+    sauces?: string[];
+  };
 }
 
 export interface RestaurantInfo {

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, FileText } from 'lucide-react';
-import type { MenuItem } from '@/types';
+import React, { useState, useRef } from 'react';
+import { FileText } from 'lucide-react';
+import type { MenuItem, MenuItemCategory } from '@/types';
 import { ProductCard } from './ProductCard';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,31 +11,43 @@ interface MenuSectionProps {
   onViewOriginalMenu: () => void;
 }
 
-type MenuCategory = 'favourites' | 'burger' | 'chicken' | 'pasta' | 'drinks';
+export type MenuFilterCategory = 'all' | MenuItemCategory;
 
 export const MenuSection: React.FC<MenuSectionProps> = ({
   menuItems,
   onSelectDish,
   onViewOriginalMenu,
 }) => {
-  const [activeCategory, setActiveCategory] = useState<MenuCategory>('favourites');
+  const [activeCategory, setActiveCategory] = useState<MenuFilterCategory>('all');
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
 
-  const categories: { key: MenuCategory; label: string }[] = [
-    { key: 'favourites', label: 'Món nên thử' },
+  const categories: { key: MenuFilterCategory; label: string }[] = [
+    { key: 'all', label: 'Tất cả' },
+    { key: 'tacos', label: 'Tacos Pháp' },
     { key: 'burger', label: 'Burger' },
-    { key: 'chicken', label: 'Gà & khoai' },
+    { key: 'chicken', label: 'Gà tender' },
+    { key: 'fries', label: 'Khoai' },
     { key: 'pasta', label: 'Mì Ý' },
+    { key: 'combo', label: 'Combo' },
     { key: 'drinks', label: 'Nước uống' },
   ];
 
-  const favouriteIds = ['taco', 'burger-beef', 'chicken-1', 'fries'];
-
   const displayedItems =
-    activeCategory === 'favourites'
-      ? favouriteIds
-          .map((id) => menuItems.find((i) => i.id === id))
-          .filter((i): i is MenuItem => i !== undefined)
+    activeCategory === 'all'
+      ? menuItems
       : menuItems.filter((i) => i.category === activeCategory);
+
+  const handleTabClick = (catKey: MenuFilterCategory, e: React.MouseEvent<HTMLButtonElement>) => {
+    setActiveCategory(catKey);
+    // Auto-scroll the selected tab into view safely
+    if (typeof e.currentTarget?.scrollIntoView === 'function') {
+      e.currentTarget.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  };
 
   const handleDishClick = (item: MenuItem) => {
     if (item.id === 'taco') {
@@ -49,12 +61,12 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
   };
 
   return (
-    <section className="menu-section section bg-cheesie-ivory/50 py-16 sm:py-24 border-b border-cheesie-line" id="menu">
+    <section className="menu-section section bg-cheesie-ivory/50 py-12 sm:py-24 border-b border-cheesie-line" id="menu">
       <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-cheesie-line/70 reveal-on-scroll">
+        <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-10 pb-6 border-b border-cheesie-line/70 reveal-on-scroll">
           <div>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <Badge variant="station" className="px-2.5 py-0.5 text-[9px] font-bold">
                 PLATFORM 01
               </Badge>
@@ -62,7 +74,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                 MENU NHÀ CHEESIE
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-cheesie-graphite tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-cheesie-graphite tracking-tight leading-tight">
               Mỗi cơn đói.
               <br />
               <span className="text-cheesie-burgundy italic">Một món đúng gu.</span>
@@ -77,25 +89,44 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
 
         {/* Menu Category Filter Toolbar */}
         <div className="menu-toolbar flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 reveal-on-scroll reveal-stagger-1">
+          {/* Horizontally Scrollable Categories */}
           <div
-            className="category-tabs inline-flex items-center gap-1.5 p-1 bg-cheesie-surface-muted/50 rounded-xl border border-cheesie-line/60 overflow-x-auto max-w-full scrollbar-none"
+            ref={tabsContainerRef}
+            className="category-tabs inline-flex items-center gap-1.5 p-1 bg-cheesie-surface-muted/50 rounded-xl border border-cheesie-line/60 overflow-x-auto max-w-full scrollbar-none scroll-smooth touch-pan-x"
             role="group"
             aria-label="Nhóm món ăn"
           >
             {categories.map((cat) => {
               const isSelected = activeCategory === cat.key;
+              const count =
+                cat.key === 'all'
+                  ? menuItems.length
+                  : menuItems.filter((i) => i.category === cat.key).length;
+
               return (
                 <button
                   key={cat.key}
                   type="button"
-                  className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 select-none min-h-[36px] flex items-center justify-center ${
+                  aria-label={cat.label}
+                  aria-pressed={isSelected}
+                  className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 select-none min-h-[38px] flex items-center justify-center gap-1.5 shrink-0 ${
                     isSelected
                       ? 'bg-cheesie-burgundy text-cheesie-surface shadow-sm'
                       : 'text-cheesie-graphite hover:text-cheesie-burgundy hover:bg-cheesie-surface/70'
                   }`}
-                  onClick={() => setActiveCategory(cat.key)}
+                  onClick={(e) => handleTabClick(cat.key, e)}
                 >
-                  {cat.label}
+                  <span>{cat.label}</span>
+                  <span
+                    aria-hidden="true"
+                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold transition-colors ${
+                      isSelected
+                        ? 'bg-cheesie-surface/20 text-cheesie-surface'
+                        : 'bg-cheesie-line/40 text-cheesie-muted'
+                    }`}
+                  >
+                    {count}
+                  </span>
                 </button>
               );
             })}
@@ -105,7 +136,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
             type="button"
             variant="ghost"
             size="sm"
-            className="menu-original self-start sm:self-auto text-xs font-semibold text-cheesie-burgundy hover:bg-cheesie-surface-muted gap-1.5 border-b border-cheesie-burgundy/40 rounded-none pb-1 hover:border-cheesie-burgundy min-h-[36px]"
+            className="menu-original self-start sm:self-auto text-xs font-semibold text-cheesie-burgundy hover:bg-cheesie-surface-muted gap-1.5 border-b border-cheesie-burgundy/40 rounded-none pb-1 hover:border-cheesie-burgundy min-h-[38px] shrink-0"
             id="view-menu"
             onClick={onViewOriginalMenu}
           >
@@ -115,46 +146,48 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
           </Button>
         </div>
 
-        {/* Product Grid */}
-        <div className="menu-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6" id="menu-grid">
+        {/* Product Grid: mobile single column horizontal cards, tablet/desktop grid */}
+        <div
+          className="menu-grid flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 min-h-[280px]"
+          id="menu-grid"
+        >
           {displayedItems.map((item, idx) => (
             <ProductCard
               key={item.id}
               item={item}
-              index={idx}
               onSelect={handleDishClick}
+              index={idx}
             />
           ))}
         </div>
 
-        {/* Station Boarding Banner to Tacos Builder */}
-        <a
-          className="tacos-banner group mt-12 block relative overflow-hidden rounded-xl border border-cheesie-line bg-gradient-to-r from-cheesie-surface via-cheesie-surface to-cheesie-surface-muted p-6 sm:p-8 shadow-station-card hover:shadow-station-hover hover:border-cheesie-burgundy/40 transition-all duration-300 reveal-on-scroll reveal-stagger-2"
-          href="#builder"
-        >
-          {/* Left Burgundy Railway Track Stripe */}
-          <div className="absolute left-0 top-0 bottom-0 w-2.5 bg-cheesie-burgundy" aria-hidden="true" />
-
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pl-2">
-            <div>
-              <span className="inline-block text-[10px] sm:text-xs font-bold tracking-widest text-cheesie-burgundy uppercase mb-1">
-                KHÔNG THẤY CHIẾC TACOS TRONG MƠ?
+        {/* Bottom Banner & Quick Link */}
+        <div className="mt-10 sm:mt-12 p-4 sm:p-6 rounded-2xl bg-cheesie-surface border border-cheesie-line/70 flex flex-col sm:flex-row sm:items-center justify-between gap-4 reveal-on-scroll">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs font-bold text-cheesie-burgundy uppercase tracking-wider">
+                CHUYẾN TÀU ĐẶC BIỆT
               </span>
-              <strong className="block text-xl sm:text-2xl font-black text-cheesie-graphite tracking-tight group-hover:text-cheesie-burgundy transition-colors">
-                Vậy thì tự cuốn một chiếc. <i className="not-italic inline-block transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">↗</i>
-              </strong>
+              <span className="text-[10px] text-cheesie-muted">· Giao hàng tận nơi</span>
             </div>
-
-            <div className="flex items-center gap-3">
-              <Badge variant="station" className="text-[10px] px-3 py-1 font-bold">
-                5 SIZE · 5 LOẠI NHÂN · 4 LOẠI SỐT
-              </Badge>
-              <div className="hidden sm:flex w-9 h-9 rounded-full bg-cheesie-burgundy text-cheesie-surface items-center justify-center transition-transform group-hover:scale-110">
-                <ArrowUpRight className="w-4 h-4" />
-              </div>
-            </div>
+            <p className="text-xs sm:text-sm text-cheesie-graphite font-medium">
+              Thèm món nào, bấm chọn món đó. Quán sẽ xác nhận đơn và giao ngay khi bạn chốt.
+            </p>
           </div>
-        </a>
+          <Button
+            variant="outline"
+            size="sm"
+            className="self-start sm:self-auto text-xs font-bold text-cheesie-burgundy border-cheesie-burgundy/40 hover:bg-cheesie-surface-muted min-h-[40px] shrink-0"
+            onClick={() => {
+              const builderElement = document.getElementById('builder');
+              if (builderElement) {
+                builderElement.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
+            Tự cuốn Tacos theo ý thích ↗
+          </Button>
+        </div>
       </div>
     </section>
   );

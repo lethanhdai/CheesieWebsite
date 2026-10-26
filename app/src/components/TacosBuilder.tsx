@@ -141,6 +141,15 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
     }
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleAddSafe = () => {
+    if (isSubmitting || !ready) return;
+    setIsSubmitting(true);
+    onAddTacosToCart();
+    setTimeout(() => setIsSubmitting(false), 500);
+  };
+
   const handleFoldClick = () => {
     if (!ready && !folded) {
       onToast('Bạn hãy chọn đủ nhân và sốt trước khi cuốn nhé.');
@@ -163,7 +172,7 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
   };
 
   return (
-    <section ref={builderSectionRef} className="builder-section relative" id="builder">
+    <section ref={builderSectionRef} className="builder-section relative pb-20 lg:pb-0" id="builder">
       <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8">
         {/* Editorial Section Header */}
         <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-cheesie-line/70 reveal-on-scroll">
@@ -604,8 +613,8 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
                 type="button"
                 className="button burgundy"
                 id="add-taco"
-                disabled={!ready}
-                onClick={onAddTacosToCart}
+                disabled={!ready || isSubmitting}
+                onClick={handleAddSafe}
               >
                 {ready
                   ? `${
@@ -693,7 +702,8 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
               <Button
                 variant="station"
                 size="sm"
-                onClick={onAddTacosToCart}
+                disabled={isSubmitting}
+                onClick={handleAddSafe}
                 className="h-10 px-4 text-xs font-bold shadow-station-sm active:scale-95 transition-all"
               >
                 {isEditing ? 'Cập nhật' : 'Thêm vào túi'}

@@ -290,7 +290,7 @@
       "id": "fries",
       "name": "Khoai truyền thống",
       "price": 39000,
-      "category": "chicken",
+      "category": "fries",
       "image": "fries.jpg",
       "desc": "Phô mai / Bơ tỏi / Nấm Truffle theo menu."
     },
@@ -298,9 +298,9 @@
       "id": "fries-bacon",
       "name": "Khoai bacon",
       "price": 49000,
-      "category": "chicken",
+      "category": "fries",
       "image": "fries.jpg",
-      "desc": "Khoai tây với bacon."
+      "desc": "Khoai tây với bacon giòn rụm."
     },
     {
       "id": "pasta-tomyum",
@@ -308,7 +308,8 @@
       "price": 60000,
       "category": "pasta",
       "emoji": "🍝",
-      "desc": "Vị kem Tomyum theo menu Cheesie."
+      "tag": "ĐỘC QUYỀN",
+      "desc": "Vị kem Tomyum chua cay béo ngậy theo menu Cheesie."
     },
     {
       "id": "pasta-cheese",
@@ -316,7 +317,7 @@
       "price": 70000,
       "category": "pasta",
       "emoji": "🍝",
-      "desc": "Cua và phô mai."
+      "desc": "Thịt cua ngọt thanh kết hợp xốt phô mai béo mịn."
     },
     {
       "id": "pasta-beef",
@@ -324,7 +325,82 @@
       "price": 60000,
       "category": "pasta",
       "emoji": "🍝",
-      "desc": "Bò bằm cùng sốt tiêu đen."
+      "desc": "Bò bằm đậm vị xào cùng sốt tiêu đen thơm nồng."
+    },
+    {
+      "id": "combo-chicken-fries",
+      "name": "Combo Chicken & Fries",
+      "price": 99000,
+      "category": "combo",
+      "image": "combos.jpg",
+      "tag": "TIẾT KIỆM",
+      "desc": "Gà tender 1 sốt (6 viên) + Khoai truyền thống + 1 Nước ngọt.",
+      "comboItems": [
+        "Gà tender 1 sốt (6 viên)",
+        "Khoai truyền thống",
+        "1 Nước ngọt"
+      ]
+    },
+    {
+      "id": "combo-best-seller",
+      "name": "Combo Best Seller Nhà Cheesie",
+      "price": 119000,
+      "category": "combo",
+      "image": "combos.jpg",
+      "tag": "BEST SELLER",
+      "desc": "Tacos size M (2 nhân, 1 sốt) + Mì Ý kem Tomyum + 1 Nước ngọt.",
+      "comboItems": [
+        "Tacos size M tự chọn",
+        "Mì Ý kem Tomyum",
+        "1 Nước ngọt"
+      ]
+    },
+    {
+      "id": "combo-bestie",
+      "name": "Combo Bestie No Nê",
+      "price": 159000,
+      "category": "combo",
+      "image": "combos.jpg",
+      "tag": "CHO 2 NGƯỜI",
+      "desc": "Tacos size M + Gà tender 2 sốt (9 viên) + Khoai tây truyền thống.",
+      "comboItems": [
+        "Tacos size M tự chọn",
+        "Gà tender 2 sốt (9 viên)",
+        "Khoai tây truyền thống"
+      ]
+    },
+    {
+      "id": "combo-mega",
+      "name": "Combo Cheesie Signature Mega",
+      "price": 219000,
+      "category": "combo",
+      "image": "combos.jpg",
+      "tag": "SIGNATURE MEGA",
+      "desc": "Burger bò phô mai + Gà tender 2 sốt + Mì Ý kem Tomyum + Khoai truyền thống + 1 Nước ngọt.",
+      "comboItems": [
+        "Burger bò phô mai",
+        "Gà tender 2 sốt (9 viên)",
+        "Mì Ý kem Tomyum",
+        "Khoai truyền thống",
+        "1 Nước ngọt"
+      ]
+    },
+    {
+      "id": "combo-big-feast",
+      "name": "Combo Cheesie Big Feast",
+      "price": 315000,
+      "category": "combo",
+      "image": "feast.jpg",
+      "tag": "ĐẠI TIỆC 3-4 NGƯỜI",
+      "desc": "Tacos size L + Burger bò phô mai + Gà tender 3 sốt + Mì Ý kem Tomyum + Khoai truyền thống + 2 Nước ngọt.",
+      "comboItems": [
+        "Tacos size L tự chọn",
+        "Burger bò phô mai",
+        "Gà tender 3 sốt (12 viên)",
+        "Mì Ý kem Tomyum",
+        "Khoai truyền thống",
+        "2 Nước ngọt"
+      ]
     },
     {
       "id": "pepsi",
@@ -344,7 +420,7 @@
     },
     {
       "id": "7up",
-      "name": "7up",
+      "name": "7 Up",
       "price": 15000,
       "category": "drinks",
       "emoji": "🥤",

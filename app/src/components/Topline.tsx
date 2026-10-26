@@ -3,7 +3,7 @@ import React from 'react';
 export const Topline: React.FC = () => {
   return (
     <div
-      className="topline bg-cheesie-burgundy text-cheesie-surface/95 text-[10px] font-medium tracking-wider border-b border-cheesie-burgundy-light/20 select-none"
+      className="topline hidden sm:block bg-cheesie-burgundy text-cheesie-surface/95 text-[10px] font-medium tracking-wider border-b border-cheesie-burgundy-light/20 select-none"
       role="region"
       aria-label="Thông tin tuyến và trạm Cheesie"
     >

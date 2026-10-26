@@ -240,7 +240,9 @@ export const App: React.FC = () => {
         key,
         type: 'menu-item',
         name: item.name,
-        details: note.trim() ? `Ghi chú: ${note.trim()}` : '',
+        details: note.trim()
+          ? (note.includes(':') ? note.trim() : `Ghi chú: ${note.trim()}`)
+          : '',
         unitPrice: item.price,
         qty,
         menuItemId: item.id,

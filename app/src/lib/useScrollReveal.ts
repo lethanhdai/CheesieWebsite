@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 
 /**
- * Lightweight scroll reveal using IntersectionObserver.
+ * Lightweight scroll reveal using IntersectionObserver and MutationObserver.
  * Triggers entrance animations once per element, with automatic fallback
  * when IntersectionObserver is unavailable or prefers-reduced-motion is active.
+ * Handles dynamic content insertion (such as category tab changes).
  */
 export function useScrollReveal() {
   useEffect(() => {
@@ -12,10 +13,10 @@ export function useScrollReveal() {
     // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
 
-    const elements = document.querySelectorAll<HTMLElement>('.reveal-on-scroll, [data-reveal]');
-
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      elements.forEach((el) => el.classList.add('is-revealed'));
+      document.querySelectorAll<HTMLElement>('.reveal-on-scroll, [data-reveal]').forEach((el) => {
+        el.classList.add('is-revealed');
+      });
       return;
     }
 
@@ -29,23 +30,46 @@ export function useScrollReveal() {
         });
       },
       {
-        threshold: 0.08,
-        rootMargin: '0px 0px -30px 0px',
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px',
       }
     );
 
-    elements.forEach((el) => {
-      // If already revealed or above the viewport on initial load, reveal immediately
+    const observeEl = (el: HTMLElement) => {
+      if (el.classList.contains('is-revealed')) return;
       const rect = el.getBoundingClientRect();
+      // If element is already in the viewport or above it, reveal immediately
       if (rect.top < window.innerHeight && rect.bottom > 0) {
         el.classList.add('is-revealed');
       } else {
         observer.observe(el);
       }
+    };
+
+    // Observe all current elements
+    document.querySelectorAll<HTMLElement>('.reveal-on-scroll, [data-reveal]').forEach(observeEl);
+
+    // Watch for dynamically inserted elements (e.g. when category filter switches)
+    const mutationObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              if (node.matches('.reveal-on-scroll, [data-reveal]')) {
+                observeEl(node);
+              }
+              node.querySelectorAll<HTMLElement>('.reveal-on-scroll, [data-reveal]').forEach(observeEl);
+            }
+          });
+        }
+      }
     });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       observer.disconnect();
+      mutationObserver.disconnect();
     };
   }, []);
 }
