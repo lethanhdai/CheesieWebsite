@@ -34,8 +34,13 @@ import { RestaurantInfoModal } from './components/RestaurantInfoModal';
 import { DishDetailModal } from './components/DishDetailModal';
 import { ChangeSizeConfirmModal } from './components/ChangeSizeConfirmModal';
 import { ResetConfirmModal } from './components/ResetConfirmModal';
+import { useScrollReveal } from './lib/useScrollReveal';
+import { useActiveSection } from './lib/useActiveSection';
 
 export const App: React.FC = () => {
+  useScrollReveal();
+  const { activeSection, scrollToSection } = useActiveSection();
+
   // Cart state with persistence
   const [cart, setCart] = useState<CartItem[]>(() => loadCartFromStorage());
 
@@ -299,6 +304,8 @@ export const App: React.FC = () => {
       <Header
         bagCount={totalBagCount}
         onOpenBag={() => setIsCartOpen(true)}
+        activeSection={activeSection}
+        onNavigateSection={scrollToSection}
       />
 
       <main>

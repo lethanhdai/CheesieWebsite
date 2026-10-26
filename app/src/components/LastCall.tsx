@@ -6,7 +6,7 @@ interface LastCallProps {
 
 export const LastCall: React.FC<LastCallProps> = ({ onOpenOrderChannels }) => {
   return (
-    <section className="last-call">
+    <section className="last-call reveal-on-scroll">
       <span className="eyebrow">END OF THE LINE. START OF A GOOD MEAL.</span>
       <h2>
         Hẹn bạn ở
@@ -15,7 +15,7 @@ export const LastCall: React.FC<LastCallProps> = ({ onOpenOrderChannels }) => {
       </h2>
       <button
         type="button"
-        className="button yellow"
+        className="button yellow min-h-[44px]"
         id="order-channels"
         onClick={onOpenOrderChannels}
       >

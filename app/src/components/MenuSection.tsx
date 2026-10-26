@@ -52,7 +52,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
     <section className="menu-section section bg-cheesie-ivory/50 py-16 sm:py-24 border-b border-cheesie-line" id="menu">
       <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-cheesie-line/70">
+        <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-cheesie-line/70 reveal-on-scroll">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Badge variant="station" className="px-2.5 py-0.5 text-[9px] font-bold">
@@ -76,7 +76,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
         </div>
 
         {/* Menu Category Filter Toolbar */}
-        <div className="menu-toolbar flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div className="menu-toolbar flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 reveal-on-scroll reveal-stagger-1">
           <div
             className="category-tabs inline-flex items-center gap-1.5 p-1 bg-cheesie-surface-muted/50 rounded-xl border border-cheesie-line/60 overflow-x-auto max-w-full scrollbar-none"
             role="group"
@@ -88,7 +88,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                 <button
                   key={cat.key}
                   type="button"
-                  className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 select-none ${
+                  className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 select-none min-h-[36px] flex items-center justify-center ${
                     isSelected
                       ? 'bg-cheesie-burgundy text-cheesie-surface shadow-sm'
                       : 'text-cheesie-graphite hover:text-cheesie-burgundy hover:bg-cheesie-surface/70'
@@ -105,7 +105,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
             type="button"
             variant="ghost"
             size="sm"
-            className="menu-original self-start sm:self-auto text-xs font-semibold text-cheesie-burgundy hover:bg-cheesie-surface-muted gap-1.5 border-b border-cheesie-burgundy/40 rounded-none pb-1 hover:border-cheesie-burgundy"
+            className="menu-original self-start sm:self-auto text-xs font-semibold text-cheesie-burgundy hover:bg-cheesie-surface-muted gap-1.5 border-b border-cheesie-burgundy/40 rounded-none pb-1 hover:border-cheesie-burgundy min-h-[36px]"
             id="view-menu"
             onClick={onViewOriginalMenu}
           >
@@ -117,10 +117,11 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
 
         {/* Product Grid */}
         <div className="menu-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6" id="menu-grid">
-          {displayedItems.map((item) => (
+          {displayedItems.map((item, idx) => (
             <ProductCard
               key={item.id}
               item={item}
+              index={idx}
               onSelect={handleDishClick}
             />
           ))}
@@ -128,7 +129,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
 
         {/* Station Boarding Banner to Tacos Builder */}
         <a
-          className="tacos-banner group mt-12 block relative overflow-hidden rounded-xl border border-cheesie-line bg-gradient-to-r from-cheesie-surface via-cheesie-surface to-cheesie-surface-muted p-6 sm:p-8 shadow-station-card hover:shadow-station-hover hover:border-cheesie-burgundy/40 transition-all duration-300"
+          className="tacos-banner group mt-12 block relative overflow-hidden rounded-xl border border-cheesie-line bg-gradient-to-r from-cheesie-surface via-cheesie-surface to-cheesie-surface-muted p-6 sm:p-8 shadow-station-card hover:shadow-station-hover hover:border-cheesie-burgundy/40 transition-all duration-300 reveal-on-scroll reveal-stagger-2"
           href="#builder"
         >
           {/* Left Burgundy Railway Track Stripe */}

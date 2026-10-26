@@ -19,7 +19,7 @@ export const Hero: React.FC = () => {
         {/* Two-Column Editorial Row: ~44% Text vs ~56% Prominent Landscape Image */}
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-14">
           {/* Left Column: ~44% Editorial Copy & CTA */}
-          <div className="w-full lg:w-[44%] flex flex-col justify-center">
+          <div className="w-full lg:w-[44%] flex flex-col justify-center reveal-on-scroll">
             {/* Station Eyebrow Tag */}
             <div className="mb-4 flex items-center gap-2">
               <Badge variant="tag" className="px-3 py-1 text-[11px] gap-2 tracking-wider">
@@ -50,7 +50,7 @@ export const Hero: React.FC = () => {
                 variant="station"
                 size="lg"
                 asChild
-                className="h-12 px-6 sm:px-8 text-xs sm:text-sm font-bold shadow-station-md hover:shadow-station-hover"
+                className="h-12 px-6 sm:px-8 text-xs sm:text-sm font-bold shadow-station-md hover:shadow-station-hover active:scale-98 transition-all"
               >
                 <a href="#builder" className="flex items-center gap-2">
                   <span>Tự cuốn tacos của bạn</span>
@@ -62,7 +62,7 @@ export const Hero: React.FC = () => {
                 variant="outline"
                 size="lg"
                 asChild
-                className="quiet-link h-12 px-5 sm:px-6 text-xs sm:text-sm font-semibold bg-cheesie-surface hover:bg-cheesie-surface-muted text-cheesie-graphite border-cheesie-line hover:border-cheesie-burgundy/40"
+                className="quiet-link h-12 px-5 sm:px-6 text-xs sm:text-sm font-semibold bg-cheesie-surface hover:bg-cheesie-surface-muted text-cheesie-graphite border-cheesie-line hover:border-cheesie-burgundy/40 active:scale-98 transition-all"
               >
                 <a href="#menu" className="flex items-center gap-2">
                   <span>Khám phá menu</span>
@@ -73,7 +73,7 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Right Column: ~56% Prominent Landscape Image in Refined Railway Window */}
-          <div className="w-full lg:w-[56%] flex justify-center">
+          <div className="w-full lg:w-[56%] flex justify-center reveal-on-scroll reveal-stagger-2">
             <div className="relative w-full rounded-2xl lg:rounded-3xl p-2 sm:p-2.5 bg-cheesie-surface border border-cheesie-line/80 shadow-station-md">
               {/* Refined Station Wayfinding Plaque */}
               <div className="relative w-full h-8 sm:h-9 rounded-t-xl lg:rounded-t-2xl bg-cheesie-burgundy text-cheesie-surface flex items-center justify-between px-3.5 sm:px-4 text-[10px] font-bold tracking-widest mb-2 shadow-inner">
@@ -140,7 +140,7 @@ export const Hero: React.FC = () => {
 
         {/* 3-Step Railway Timeline Guide — Editorial station track positioned cleanly below the Hero row */}
         <div
-          className="mt-10 lg:mt-14 pt-6 sm:pt-8 border-t border-cheesie-line/70 relative"
+          className="mt-10 lg:mt-14 pt-6 sm:pt-8 border-t border-cheesie-line/70 relative reveal-on-scroll reveal-stagger-3"
           aria-label="3 bước tự cuốn tacos"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-6">

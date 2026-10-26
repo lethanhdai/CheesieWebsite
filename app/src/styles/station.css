@@ -1260,14 +1260,31 @@ footer .footer-credits {
 }
 
 .cart-controls button {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--line);
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 14px;
+  font-size: 15px;
   background: #f7f9fa;
+  position: relative;
+  transition: all 0.15s;
+}
+
+.cart-controls button:hover:not(:disabled) {
+  background: #6a1b20;
+  color: #fff;
+  border-color: #6a1b20;
+}
+
+.cart-controls button::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: -6px;
+  right: -6px;
 }
 
 .cart-controls .edit-btn, .cart-controls .del-btn {
@@ -1518,15 +1535,125 @@ footer .footer-credits {
   }
 }
 
+@media (max-width: 640px) {
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal-card {
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-height: 85vh;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 390px) {
   .ingredient-tray {
     grid-template-columns: 1fr;
   }
 }
 
+/* ========================================================================= */
+/* PHASE 04: MOTION DESIGN SYSTEM & INTERACTION PRIMITIVES                   */
+/* ========================================================================= */
+
+/* Scroll Reveal Entrance System */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger-1 { transition-delay: 60ms; }
+.reveal-stagger-2 { transition-delay: 120ms; }
+.reveal-stagger-3 { transition-delay: 180ms; }
+.reveal-stagger-4 { transition-delay: 240ms; }
+.reveal-stagger-5 { transition-delay: 300ms; }
+
+/* Micro-interactions */
+@keyframes cart-bump {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.22); }
+  60% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+.animate-cart-bump {
+  animation: cart-bump 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Touch targets optimization for mobile */
+.stepper button {
+  position: relative;
+}
+
+.stepper button::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  bottom: -9px;
+  left: -9px;
+  right: -9px;
+}
+
+/* Mobile Sheet animations */
+@keyframes drawer-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0.9;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes drawer-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-drawer-in {
+  animation: drawer-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-drawer-fade {
+  animation: drawer-fade-in 0.25s ease-out forwards;
+}
+
+/* Mobile Sticky Builder Bar */
+.mobile-sticky-bar {
+  transform: translateY(120%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mobile-sticky-bar.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .mobile-sticky-bar {
+    transform: none !important;
+    transition: none !important;
   }
   *, *:before, *:after {
     animation: none !important;

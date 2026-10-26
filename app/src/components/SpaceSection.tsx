@@ -9,7 +9,7 @@ export const SpaceSection: React.FC<SpaceSectionProps> = ({
 }) => {
   return (
     <section className="space-section section" id="space">
-      <div className="space-image">
+      <div className="space-image reveal-on-scroll">
         <img
           src="/assets/restaurant.jpg"
           alt="Mặt tiền và chỗ ngồi Cheesie với phong cách trạm tàu, ghế đỏ và đèn trần hình học"
@@ -18,7 +18,7 @@ export const SpaceSection: React.FC<SpaceSectionProps> = ({
         <span>CHEESIE STATION — NEXT STOP: GOOD FOOD.</span>
       </div>
 
-      <div className="space-copy">
+      <div className="space-copy reveal-on-scroll reveal-stagger-2">
         <p className="eyebrow">PLATFORM 03 / CHEESIE STATION</p>
         <h2>
           Trạm dừng
@@ -37,7 +37,7 @@ export const SpaceSection: React.FC<SpaceSectionProps> = ({
 
         <button
           type="button"
-          className="button burgundy"
+          className="button burgundy min-h-[44px]"
           id="restaurant-info"
           onClick={onOpenRestaurantInfo}
         >

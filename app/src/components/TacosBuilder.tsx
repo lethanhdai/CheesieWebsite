@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import type { TacosSizeKey, IngredientKind, SelectedIngredients } from '../types';
 import {
@@ -52,6 +52,33 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
 }) => {
   const [activeKind, setActiveKind] = useState<IngredientKind>('protein');
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const builderSectionRef = useRef<HTMLElement>(null);
+  const [isBuilderInView, setIsBuilderInView] = useState<boolean>(false);
+
+  // IntersectionObserver to only show mobile sticky bar when builder is on screen
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const section = builderSectionRef.current;
+    if (!section || !('IntersectionObserver' in window)) {
+      setIsBuilderInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsBuilderInView(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   const sizeConfig = TACOS_SIZES[size];
   const proteinCount = countIngredientKind(selected, 'protein');
@@ -136,10 +163,10 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
   };
 
   return (
-    <section className="builder-section relative" id="builder">
+    <section ref={builderSectionRef} className="builder-section relative" id="builder">
       <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8">
         {/* Editorial Section Header */}
-        <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-cheesie-line/70">
+        <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-cheesie-line/70 reveal-on-scroll">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Badge variant="station" className="px-2.5 py-0.5 text-[9px] font-bold">
@@ -163,7 +190,7 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
         </div>
 
         {/* Ga tàu Departure Board */}
-        <div className="departure-board" aria-label="Bảng khởi hành Tacos Express">
+        <div className="departure-board reveal-on-scroll reveal-stagger-1" aria-label="Bảng khởi hành Tacos Express">
           <div className="flex items-center gap-3">
             <span className="train-icon" aria-hidden="true">
               ↔
@@ -347,6 +374,32 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
               <span className="drag-hint">KÉO THẢ HOẶC BẤM +</span>
             </div>
 
+            {/* Step Completion Guided Prompt */}
+            {leftP === 0 && leftS > 0 && activeKind === 'protein' && (
+              <div className="mb-3 px-3.5 py-2.5 rounded-xl bg-cheesie-gold/10 border border-cheesie-gold/40 flex items-center justify-between text-xs font-bold text-cheesie-graphite animate-drawer-fade">
+                <span>✦ Đã đủ {sizeConfig.protein} phần nhân! Tiếp tục chọn sốt nhé.</span>
+                <button
+                  type="button"
+                  onClick={() => setActiveKind('sauce')}
+                  className="text-cheesie-burgundy font-black underline hover:no-underline ml-2 text-xs shrink-0"
+                >
+                  Sang tab sốt ↗
+                </button>
+              </div>
+            )}
+            {leftS === 0 && leftP > 0 && activeKind === 'sauce' && (
+              <div className="mb-3 px-3.5 py-2.5 rounded-xl bg-cheesie-gold/10 border border-cheesie-gold/40 flex items-center justify-between text-xs font-bold text-cheesie-graphite animate-drawer-fade">
+                <span>✦ Đã đủ {sizeConfig.sauce} phần sốt! Đừng quên chọn đủ nhân.</span>
+                <button
+                  type="button"
+                  onClick={() => setActiveKind('protein')}
+                  className="text-cheesie-burgundy font-black underline hover:no-underline ml-2 text-xs shrink-0"
+                >
+                  Sang tab nhân ↗
+                </button>
+              </div>
+            )}
+
             <div
               className="ingredient-tray"
               id="ingredient-tray"
@@ -357,12 +410,15 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
                 const currentQty = selected[item.id] || 0;
                 const canAdd = canAddIngredient(size, selected, item.id);
                 const isSelected = currentQty > 0;
+                const isUnavailable = !canAdd && currentQty === 0;
 
                 return (
                   <div
                     key={item.id}
-                    className={`ingredient-card ${isSelected ? 'selected' : ''}`}
-                    draggable
+                    className={`ingredient-card ${isSelected ? 'selected' : ''} ${
+                      isUnavailable ? 'opacity-60 grayscale-[0.2]' : ''
+                    }`}
+                    draggable={canAdd || isSelected}
                     onDragStart={(e) => handleDragStart(e, item.id)}
                   >
                     <div className="w-11 h-11 rounded-lg bg-cheesie-surface-muted/60 flex items-center justify-center shrink-0 border border-cheesie-line/50">
@@ -373,6 +429,8 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
                       <small>
                         {item.kind === 'extra'
                           ? `+${formatVND(item.price || 0)}`
+                          : isUnavailable
+                          ? 'Đã đủ phần của size'
                           : item.note || 'Theo phần nhân của size'}
                       </small>
                       <div className="stepper">
@@ -381,6 +439,7 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
                           aria-label={`Bớt ${item.name}`}
                           disabled={currentQty === 0}
                           onClick={() => onIngredientRemove(item.id)}
+                          className="min-h-[30px] min-w-[30px] active:scale-95 transition-transform"
                         >
                           −
                         </button>
@@ -398,6 +457,7 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
                               );
                             }
                           }}
+                          className="min-h-[30px] min-w-[30px] active:scale-95 transition-transform"
                         >
                           +
                         </button>
@@ -557,6 +617,26 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
                 <span>↗</span>
               </button>
 
+              {!ready && (
+                <div className="mt-2.5 pt-2 border-t border-cheesie-line/40 flex items-center justify-between text-[11px] text-cheesie-muted">
+                  <span>
+                    {leftP > 0 ? `Còn thiếu ${leftP} nhân` : ''}
+                    {leftP > 0 && leftS > 0 ? ' · ' : ''}
+                    {leftS > 0 ? `Còn thiếu ${leftS} sốt` : ''}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (leftP > 0) setActiveKind('protein');
+                      else if (leftS > 0) setActiveKind('sauce');
+                    }}
+                    className="text-cheesie-burgundy font-bold hover:underline"
+                  >
+                    {leftP > 0 ? 'Chọn nhân ngay ↗' : 'Chọn sốt ngay ↗'}
+                  </button>
+                </div>
+              )}
+
               <p
                 className="builder-status"
                 id="builder-status"
@@ -577,7 +657,14 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
         </div>
 
         {/* Mobile Sticky Action Bar */}
-        <div className="lg:hidden sticky bottom-0 -mx-4 mt-8 z-40 bg-cheesie-surface/95 backdrop-blur-md border-t border-cheesie-line px-4 py-3 shadow-lg flex items-center justify-between gap-3">
+        <div
+          className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-cheesie-surface/95 backdrop-blur-md border-t border-cheesie-line px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-xl transition-all duration-300 flex items-center justify-between gap-3 ${
+            isBuilderInView
+              ? 'translate-y-0 opacity-100 pointer-events-auto'
+              : 'translate-y-full opacity-0 pointer-events-none'
+          }`}
+          aria-hidden={!isBuilderInView}
+        >
           <div>
             <span className="text-[10px] text-cheesie-muted uppercase font-bold block">
               Tacos size {size} · {ready ? 'Sẵn sàng' : `Thiếu ${leftP + leftS} món`}
@@ -587,16 +674,33 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
             </strong>
           </div>
 
-          <Button
-            variant="station"
-            size="sm"
-            disabled={!ready}
-            onClick={onAddTacosToCart}
-            className="h-10 px-4 text-xs font-bold"
-          >
-            {ready ? (isEditing ? 'Cập nhật' : 'Thêm vào túi') : 'Chưa đủ phần'}
-            <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
-          </Button>
+          <div className="flex items-center gap-2">
+            {!ready ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  if (leftP > 0) setActiveKind('protein');
+                  else if (leftS > 0) setActiveKind('sauce');
+                  const tray = document.getElementById('ingredient-tray');
+                  if (tray) tray.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="h-10 px-3 text-xs font-bold text-cheesie-burgundy border-cheesie-burgundy/40 bg-cheesie-burgundy/5 hover:bg-cheesie-burgundy/10 active:scale-95 transition-all"
+              >
+                {leftP > 0 ? 'Chọn nhân ↗' : 'Chọn sốt ↗'}
+              </Button>
+            ) : (
+              <Button
+                variant="station"
+                size="sm"
+                onClick={onAddTacosToCart}
+                className="h-10 px-4 text-xs font-bold shadow-station-sm active:scale-95 transition-all"
+              >
+                {isEditing ? 'Cập nhật' : 'Thêm vào túi'}
+                <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </section>
