@@ -19,13 +19,17 @@ export const SpaceSection: React.FC<SpaceSectionProps> = ({
       </div>
 
       <div className="space-copy reveal-on-scroll reveal-stagger-2">
-        <p className="eyebrow">PLATFORM 03 / CHEESIE STATION</p>
+        {/* Editorial Eyebrow Label */}
+        <div className="flex items-center gap-2 mb-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
+          <span className="text-xs font-bold tracking-widest text-cheesie-burgundy uppercase">
+            GHÉ CHEESIE
+          </span>
+        </div>
         <h2>
-          Trạm dừng
+          Một trạm dừng,
           <br />
-          của những
-          <br />
-          <em>chiếc bụng đói.</em>
+          <em>đủ món ngon.</em>
         </h2>
         <p>
           Một cuộc hẹn với bạn thân, một bữa tối đổi gió,

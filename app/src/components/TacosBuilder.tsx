@@ -172,17 +172,16 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
   };
 
   return (
-    <section ref={builderSectionRef} className="builder-section relative pb-20 lg:pb-0" id="builder">
+    <section ref={builderSectionRef} className="builder-section relative pb-28 lg:pb-0" id="builder">
       <div className="max-w-layout mx-auto px-4 sm:px-6 lg:px-8">
         {/* Editorial Section Header */}
         <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-cheesie-line/70 reveal-on-scroll">
           <div>
+            {/* Editorial Eyebrow Label */}
             <div className="flex items-center gap-2 mb-3">
-              <Badge variant="station" className="px-2.5 py-0.5 text-[9px] font-bold">
-                PLATFORM 02
-              </Badge>
-              <span className="text-xs font-bold tracking-wider text-cheesie-muted uppercase">
-                TACOS EXPRESS · TỰ CUỐN THEO GU
+              <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
+              <span className="text-xs font-bold tracking-widest text-cheesie-burgundy uppercase">
+                TỰ CUỐN TACOS
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-cheesie-graphite tracking-tight leading-tight">
@@ -192,9 +191,9 @@ export const TacosBuilder: React.FC<TacosBuilderProps> = ({
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-cheesie-muted max-w-sm leading-relaxed">
-            Chọn size. Kéo nhân vào bánh. Thêm sốt.
+            Chọn size, chọn nhân, thêm sốt.
             <br />
-            Phần ngon nhất? Mọi lựa chọn đều là của bạn.
+            Chiếc tacos ngon nhất là chiếc đúng ý bạn.
           </p>
         </div>
 

@@ -4,6 +4,7 @@ import type { MenuItem } from '@/types';
 import { formatVND } from '@/domain/cart';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ProductArtwork } from './ProductArtwork';
 
 interface ProductCardProps {
   item: MenuItem;
@@ -17,41 +18,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect, index 
   const staggerClass = `reveal-stagger-${(index % 4) + 1}`;
 
   return (
-    <div
-      className={`group flex flex-row sm:flex-col justify-between overflow-hidden rounded-2xl border border-cheesie-line/60 bg-cheesie-surface hover:border-cheesie-burgundy/40 hover:shadow-station-card transition-all duration-300 p-3 sm:p-0 gap-3 sm:gap-0 reveal-on-scroll ${staggerClass}`}
+    <article
+      className={`group flex flex-row sm:flex-col justify-between overflow-hidden rounded-2xl border border-cheesie-line/60 bg-cheesie-surface hover:border-cheesie-burgundy/40 hover:shadow-station-sm transition-all duration-300 p-3 sm:p-0 gap-3 sm:gap-0 reveal-on-scroll ${staggerClass}`}
     >
-      {/* Visual Image / Artwork Area */}
-      <div className="relative w-24 h-24 sm:w-full sm:aspect-[4/3] rounded-xl sm:rounded-none shrink-0 bg-cheesie-surface-muted/60 overflow-hidden border border-cheesie-line/40 sm:border-0 sm:border-b sm:border-cheesie-line/50">
-        {item.image ? (
-          <img
-            src={`/assets/${item.image}`}
-            alt={
-              item.id === 'taco'
-                ? 'Tacos từ ảnh menu Cheesie'
-                : item.image === 'burger.jpg'
-                ? 'Ảnh burger đại diện từ menu Cheesie'
-                : `${item.name} từ menu Cheesie`
-            }
-            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
-            loading="lazy"
-          />
-        ) : (
-          <div
-            className={`w-full h-full flex items-center justify-center text-3xl sm:text-5xl transition-transform duration-500 group-hover:scale-110 select-none ${
-              item.category === 'pasta' ? 'bg-[#F3EDE2]' : 'bg-[#EAF0E8]'
-            }`}
-            aria-hidden="true"
-          >
-            {item.emoji}
-          </div>
-        )}
+      {/* Product Artwork Area: authentic photo where available, or fast-casual editorial placeholder */}
+      <div className="relative w-24 h-24 sm:w-full sm:aspect-[4/3] rounded-xl sm:rounded-none shrink-0 bg-cheesie-surface-muted/50 overflow-hidden border border-cheesie-line/40 sm:border-0 sm:border-b sm:border-cheesie-line/50">
+        <ProductArtwork item={item} />
 
         {/* Feature Tag */}
         {item.tag && (
           <div className="absolute top-1.5 left-1.5 sm:top-2.5 sm:left-2.5 z-10">
             <Badge
               variant="tag"
-              className="text-[8px] sm:text-[9px] px-1.5 sm:px-2 py-0.5 tracking-wider bg-cheesie-surface/90 backdrop-blur-xs font-bold"
+              className="text-[8px] sm:text-[9px] px-1.5 sm:px-2 py-0.5 tracking-wider bg-cheesie-surface/90 backdrop-blur-xs font-bold shadow-xs"
             >
               {item.tag}
             </Badge>
@@ -65,17 +44,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect, index 
         />
       </div>
 
-      {/* Card Body */}
+      {/* Card Content Body */}
       <div className="p-0 sm:p-5 flex flex-col flex-1 justify-between gap-2 sm:gap-3 min-w-0">
         <div>
           <div className="flex items-center gap-1.5 flex-wrap">
-            <h3 className="font-bold text-sm sm:text-base text-cheesie-graphite group-hover:text-cheesie-burgundy transition-colors line-clamp-1">
+            <h3 className="font-extrabold text-sm sm:text-base text-cheesie-graphite group-hover:text-cheesie-burgundy transition-colors line-clamp-1">
               {item.name}
             </h3>
           </div>
           <p className="text-[11px] sm:text-xs text-cheesie-muted leading-relaxed mt-0.5 sm:mt-1 line-clamp-2 min-h-0 sm:min-h-[32px]">
             {item.desc}
           </p>
+
+          {/* Quick Combo Included Summary for desktop */}
+          {isCombo && item.comboItems && (
+            <div className="hidden sm:flex flex-wrap gap-1 mt-2">
+              {item.comboItems.slice(0, 3).map((subItem, idx) => (
+                <span
+                  key={idx}
+                  className="text-[10px] px-1.5 py-0.5 rounded bg-cheesie-surface-muted/70 text-cheesie-graphite/80 font-medium"
+                >
+                  ✓ {subItem}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Price & Add Action with touch target >= 44px */}
@@ -86,7 +79,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect, index 
                 Khởi điểm từ
               </span>
             )}
-            <strong className="text-sm sm:text-base font-extrabold text-cheesie-graphite tracking-tight">
+            <strong className="text-sm sm:text-base font-black text-cheesie-graphite tracking-tight">
               {formatVND(item.price)}
             </strong>
           </div>
@@ -108,6 +101,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect, index 
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
 export const Hero: React.FC = () => {
   return (
@@ -20,14 +19,11 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-14">
           {/* Left Column: ~44% Editorial Copy & CTA */}
           <div className="w-full lg:w-[44%] flex flex-col justify-center reveal-on-scroll">
-            {/* Station Eyebrow Tag */}
-            <div className="mb-4 flex items-center gap-2">
-              <Badge variant="tag" className="px-3 py-1 text-[11px] gap-2 tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-cheesie-burgundy" aria-hidden="true" />
-                <span>GA CHEESIE / TRẠM ĐỒ NGON</span>
-              </Badge>
-              <span className="hidden sm:inline-block text-[11px] text-cheesie-muted font-medium tracking-wide">
-                CAN THO · PLATFORM 00
+            {/* Editorial Eyebrow Label */}
+            <div className="mb-3.5 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
+              <span className="text-xs font-bold tracking-widest text-cheesie-burgundy uppercase">
+                GA CHEESIE / TRẠM ĐỒ NGON
               </span>
             </div>
 
@@ -40,8 +36,7 @@ export const Hero: React.FC = () => {
 
             {/* Supporting Description */}
             <p className="text-cheesie-muted text-sm sm:text-base leading-relaxed max-w-xl mb-8">
-              Tacos đầy nhân, burger đẫm vị, gà giòn rụm. Ghé Cheesie chọn một món ngon —
-              hay tự tay tạo chiếc tacos đúng gu của riêng bạn ngay trên chuyến tàu vị giác.
+              Tacos đầy nhân, burger đậm vị, gà giòn rụm. Thích món nào cứ chọn, còn chiếc tacos đúng gu thì bạn tự tay quyết định.
             </p>
 
             {/* Action Buttons */}
@@ -145,11 +140,9 @@ export const Hero: React.FC = () => {
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-6">
             <div className="flex items-center gap-2">
-              <Badge variant="station" className="text-[9px] px-2 py-0.5 font-bold">
-                LỘ TRÌNH TỰ CUỐN
-              </Badge>
+              <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
               <span className="text-xs font-bold text-cheesie-graphite tracking-wide uppercase">
-                Hành trình tạo chiếc Tacos đúng gu
+                3 bước tự cuốn Tacos theo ý bạn
               </span>
             </div>
             <span className="text-[11px] text-cheesie-muted hidden sm:inline-block">

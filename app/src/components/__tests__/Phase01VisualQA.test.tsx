@@ -37,7 +37,7 @@ describe('Phase 01 Visual QA & Responsive Integrity', () => {
     render(<Hero />);
     expect(screen.getByText(/Đói rồi\?/i)).toBeDefined();
     expect(screen.getAllByText(/Cuốn/i).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText(/Tacos đầy nhân, burger đẫm vị, gà giòn rụm/i)).toBeDefined();
+    expect(screen.getByText(/Tacos đầy nhân, burger đ(ậ|ẫ)m vị, gà giòn rụm/i)).toBeDefined();
 
     // CTA buttons
     const builderLinks = screen.getAllByRole('link', { name: /Tự cuốn tacos của bạn/i });

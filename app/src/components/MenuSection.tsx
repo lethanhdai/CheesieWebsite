@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { FileText } from 'lucide-react';
 import type { MenuItem, MenuItemCategory } from '@/types';
 import { ProductCard } from './ProductCard';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 interface MenuSectionProps {
@@ -66,11 +65,10 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
         {/* Section Header */}
         <div className="section-title flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-10 pb-6 border-b border-cheesie-line/70 reveal-on-scroll">
           <div>
+            {/* Editorial Eyebrow Label */}
             <div className="flex items-center gap-2 mb-2 sm:mb-3">
-              <Badge variant="station" className="px-2.5 py-0.5 text-[9px] font-bold">
-                PLATFORM 01
-              </Badge>
-              <span className="text-xs font-bold tracking-wider text-cheesie-muted uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
+              <span className="text-xs font-bold tracking-widest text-cheesie-burgundy uppercase">
                 MENU NHÀ CHEESIE
               </span>
             </div>
@@ -81,55 +79,60 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-cheesie-muted max-w-sm leading-relaxed">
-            Team tacos hay team burger?
-            <br />
-            Nhà Cheesie luôn có chỗ cho mọi chiếc bụng đói ghé trạm.
+            Tacos, burger, gà giòn, mì Ý… Món nào hợp gu bạn hôm nay?
           </p>
         </div>
 
         {/* Menu Category Filter Toolbar */}
         <div className="menu-toolbar flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 reveal-on-scroll reveal-stagger-1">
-          {/* Horizontally Scrollable Categories */}
-          <div
-            ref={tabsContainerRef}
-            className="category-tabs inline-flex items-center gap-1.5 p-1 bg-cheesie-surface-muted/50 rounded-xl border border-cheesie-line/60 overflow-x-auto max-w-full scrollbar-none scroll-smooth touch-pan-x"
-            role="group"
-            aria-label="Nhóm món ăn"
-          >
-            {categories.map((cat) => {
-              const isSelected = activeCategory === cat.key;
-              const count =
-                cat.key === 'all'
-                  ? menuItems.length
-                  : menuItems.filter((i) => i.category === cat.key).length;
+          {/* Horizontally Scrollable Categories with scroll affordance */}
+          <div className="relative max-w-full overflow-hidden">
+            <div
+              ref={tabsContainerRef}
+              className="category-tabs inline-flex items-center gap-1.5 p-1 bg-cheesie-surface-muted/50 rounded-xl border border-cheesie-line/60 overflow-x-auto max-w-full scrollbar-none scroll-smooth touch-pan-x"
+              role="group"
+              aria-label="Nhóm món ăn"
+            >
+              {categories.map((cat) => {
+                const isSelected = activeCategory === cat.key;
+                const count =
+                  cat.key === 'all'
+                    ? menuItems.length
+                    : menuItems.filter((i) => i.category === cat.key).length;
 
-              return (
-                <button
-                  key={cat.key}
-                  type="button"
-                  aria-label={cat.label}
-                  aria-pressed={isSelected}
-                  className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 select-none min-h-[38px] flex items-center justify-center gap-1.5 shrink-0 ${
-                    isSelected
-                      ? 'bg-cheesie-burgundy text-cheesie-surface shadow-sm'
-                      : 'text-cheesie-graphite hover:text-cheesie-burgundy hover:bg-cheesie-surface/70'
-                  }`}
-                  onClick={(e) => handleTabClick(cat.key, e)}
-                >
-                  <span>{cat.label}</span>
-                  <span
-                    aria-hidden="true"
-                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold transition-colors ${
+                return (
+                  <button
+                    key={cat.key}
+                    type="button"
+                    aria-label={cat.label}
+                    aria-pressed={isSelected}
+                    className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 select-none min-h-[38px] flex items-center justify-center gap-1.5 shrink-0 ${
                       isSelected
-                        ? 'bg-cheesie-surface/20 text-cheesie-surface'
-                        : 'bg-cheesie-line/40 text-cheesie-muted'
+                        ? 'bg-cheesie-burgundy text-cheesie-surface shadow-sm'
+                        : 'text-cheesie-graphite hover:text-cheesie-burgundy hover:bg-cheesie-surface/70'
                     }`}
+                    onClick={(e) => handleTabClick(cat.key, e)}
                   >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
+                    <span>{cat.label}</span>
+                    <span
+                      aria-hidden="true"
+                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold transition-colors ${
+                        isSelected
+                          ? 'bg-cheesie-surface/20 text-cheesie-surface'
+                          : 'bg-cheesie-line/40 text-cheesie-muted'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {/* Mobile edge scroll fade affordance */}
+            <div
+              className="sm:hidden pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-cheesie-ivory/80 to-transparent"
+              aria-hidden="true"
+            />
           </div>
 
           <Button
@@ -146,9 +149,9 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
           </Button>
         </div>
 
-        {/* Product Grid: mobile single column horizontal cards, tablet/desktop grid */}
+        {/* Product Grid: adaptive height, naturally conforming to item count without empty vertical void */}
         <div
-          className="menu-grid flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 min-h-[280px]"
+          className="menu-grid flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 min-h-0 transition-all duration-300"
           id="menu-grid"
         >
           {displayedItems.map((item, idx) => (
@@ -165,8 +168,9 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
         <div className="mt-10 sm:mt-12 p-4 sm:p-6 rounded-2xl bg-cheesie-surface border border-cheesie-line/70 flex flex-col sm:flex-row sm:items-center justify-between gap-4 reveal-on-scroll">
           <div>
             <div className="flex items-center gap-2 mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
               <span className="text-xs font-bold text-cheesie-burgundy uppercase tracking-wider">
-                CHUYẾN TÀU ĐẶC BIỆT
+                TỰ TAY TẠO GU
               </span>
               <span className="text-[10px] text-cheesie-muted">· Giao hàng tận nơi</span>
             </div>
@@ -185,7 +189,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
               }
             }}
           >
-            Tự cuốn Tacos theo ý thích ↗
+            Muốn tacos đúng gu? Tự cuốn một chiếc nhé ↗
           </Button>
         </div>
       </div>

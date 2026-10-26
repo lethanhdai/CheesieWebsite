@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, ZoomIn, ZoomOut, FileText } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 interface OriginalMenuModalProps {
@@ -54,10 +53,14 @@ export const OriginalMenuModal: React.FC<OriginalMenuModalProps> = ({
       >
         {/* Sticky Header Bar */}
         <div className="sticky top-0 z-20 flex items-center justify-between p-3.5 sm:p-5 border-b border-cheesie-line/80 bg-cheesie-surface/95 backdrop-blur-md shrink-0">
-          <div className="flex items-center gap-2">
-            <Badge variant="station" className="text-[9px] px-2 py-0.5 font-bold">
-              BẢN GỐC
-            </Badge>
+          <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-1.5 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
+              <span className="text-xs font-bold tracking-widest text-cheesie-burgundy uppercase">
+                BẢN GỐC
+              </span>
+            </div>
+            <div className="h-4 w-px bg-cheesie-line/80 shrink-0 hidden sm:block" aria-hidden="true" />
             <div>
               <h2
                 id="original-menu-title"

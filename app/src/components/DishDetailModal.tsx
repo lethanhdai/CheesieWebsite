@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, Check, ArrowUpRight } from 'lucide-react';
 import type { MenuItem } from '../types';
 import { formatVND } from '../domain/cart';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ProductArtwork } from './ProductArtwork';
 
 interface DishDetailModalProps {
   item: MenuItem | null;
@@ -215,10 +215,8 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
         {/* Header Bar */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-cheesie-line/80 shrink-0 bg-cheesie-surface">
           <div className="flex items-center gap-2">
-            <Badge variant="station" className="text-[9px] px-2 py-0.5 font-bold">
-              PLATFORM 01
-            </Badge>
-            <span className="text-[11px] font-bold tracking-wider text-cheesie-muted uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-cheesie-burgundy shrink-0" aria-hidden="true" />
+            <span className="text-xs font-bold tracking-widest text-cheesie-burgundy uppercase">
               CHI TIẾT MÓN ĂN
             </span>
           </div>
@@ -237,17 +235,9 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
         <div className="p-4 sm:p-6 overflow-y-auto space-y-5 text-cheesie-graphite">
           {/* Dish Overview */}
           <div className="flex items-start gap-4">
-            {item.image ? (
-              <img
-                src={`/assets/${item.image}`}
-                alt={item.name}
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 border border-cheesie-line/60 shadow-station-sm"
-              />
-            ) : (
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-cheesie-surface-muted/60 flex items-center justify-center text-4xl shrink-0 border border-cheesie-line/60">
-                {item.emoji}
-              </div>
-            )}
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl shrink-0 overflow-hidden border border-cheesie-line/60 shadow-station-sm">
+              <ProductArtwork item={item} isDetailView />
+            </div>
 
             <div className="flex-1 min-w-0">
               <h2

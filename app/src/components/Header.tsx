@@ -200,7 +200,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <strong className="block text-xs font-bold tracking-wider uppercase text-cheesie-graphite">
                       CHEESIE STATION
                     </strong>
-                    <span className="text-[10px] text-cheesie-muted">Menu & Lộ trình</span>
+                    <span className="text-[10px] text-cheesie-muted">Menu & Không gian</span>
                   </div>
                 </div>
 
