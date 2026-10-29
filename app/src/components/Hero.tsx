@@ -90,6 +90,10 @@ export const Hero: React.FC = () => {
                   className="w-full h-full object-cover object-[center_55%] transition-transform duration-700 hover:scale-105"
                   src="/assets/feast.jpg"
                   alt="Tacos, burger, gà tender, mì Ý và khoai tây của Cheesie"
+                  fetchPriority="high"
+                  loading="eager"
+                  width="464"
+                  height="310"
                 />
 
                 {/* Subtle vignette gradient for food presentation */}

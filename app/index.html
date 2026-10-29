@@ -3,16 +3,268 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#741f28" />
+    <title>Cheesie - Tacos and Burger</title>
+
+    <!-- Primary SEO Metadata -->
     <meta
       name="description"
-      content="Cheesie — Tacos Pháp, burger, gà tender. Tự chọn size, nhân và sốt cho chiếc tacos của riêng bạn."
+      content="Cheesie tại 102 Lê Lai, Ninh Kiều, Cần Thơ. Khám phá tacos Pháp tự chọn nhân, sốt, burger, gà tender, mì Ý và menu các món ngon nhà Cheesie."
     />
-    <link rel="icon" href="/assets/logo.jpg" />
-    <title>Cheesie — Cuốn theo cách của bạn.</title>
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#6A1B20" />
+    <link rel="canonical" href="https://cheesiewebsite.vercel.app/" />
+
+    <!-- Preload Hero LCP Image -->
+    <link rel="preload" as="image" href="/assets/feast.jpg" fetchpriority="high" />
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/jpeg" href="/assets/logo.jpg" />
+    <link rel="apple-touch-icon" href="/assets/logo.jpg" />
+
+    <!-- Open Graph / Facebook / Zalo -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Cheesie - Tacos and Burger" />
+    <meta property="og:site_name" content="Cheesie - Tacos and Burger" />
+    <meta
+      property="og:description"
+      content="Cheesie tại 102 Lê Lai, Ninh Kiều, Cần Thơ. Khám phá tacos Pháp tự chọn nhân, sốt, burger, gà tender, mì Ý và menu các món ngon nhà Cheesie."
+    />
+    <meta property="og:url" content="https://cheesiewebsite.vercel.app/" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta
+      property="og:image"
+      content="https://cheesiewebsite.vercel.app/assets/og-image.jpg"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://cheesiewebsite.vercel.app/assets/og-image.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Cheesie - Tacos and Burger tại 102 Lê Lai, Ninh Kiều, Cần Thơ"
+    />
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cheesie - Tacos and Burger" />
+    <meta
+      name="twitter:description"
+      content="Cheesie tại 102 Lê Lai, Ninh Kiều, Cần Thơ. Khám phá tacos Pháp tự chọn nhân, sốt, burger, gà tender, mì Ý và menu các món ngon nhà Cheesie."
+    />
+    <meta
+      name="twitter:image"
+      content="https://cheesiewebsite.vercel.app/assets/og-image.jpg"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Cheesie - Tacos and Burger tại 102 Lê Lai, Ninh Kiều, Cần Thơ"
+    />
+
+    <!-- Restaurant Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "@id": "https://cheesiewebsite.vercel.app/#restaurant",
+        "name": "Cheesie - Tacos and Burger",
+        "alternateName": [
+          "Cheesie Station",
+          "Cheesie Tacos and Burger",
+          "Cheesie Cần Thơ"
+        ],
+        "url": "https://cheesiewebsite.vercel.app/",
+        "description": "Cheesie tại 102 Lê Lai, Ninh Kiều, Cần Thơ. Khám phá tacos Pháp tự chọn nhân, sốt, burger, gà tender, mì Ý và menu các món ngon nhà Cheesie.",
+        "image": "https://cheesiewebsite.vercel.app/assets/og-image.jpg",
+        "logo": "https://cheesiewebsite.vercel.app/assets/logo.jpg",
+        "telephone": "+84788786283",
+        "email": "cheesieburgersandtacos@gmail.com",
+        "servesCuisine": [
+          "Tacos Pháp",
+          "French Tacos",
+          "Burger",
+          "Gà tender",
+          "Mì Ý",
+          "Fast Casual"
+        ],
+        "hasMenu": "https://cheesiewebsite.vercel.app/#menu",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "102 Đường Lê Lai",
+          "addressLocality": "Ninh Kiều",
+          "addressRegion": "Cần Thơ",
+          "addressCountry": "VN"
+        },
+        "openingHours": "09:30-22:30",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "opens": "09:30",
+            "closes": "22:30",
+            "dayOfWeek": [
+              "https://schema.org/Monday",
+              "https://schema.org/Tuesday",
+              "https://schema.org/Wednesday",
+              "https://schema.org/Thursday",
+              "https://schema.org/Friday",
+              "https://schema.org/Saturday",
+              "https://schema.org/Sunday"
+            ]
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/profile.php?id=61560992384243",
+          "https://shopeefood.vn/can-tho/cheesie-tacos-burger-le-lai",
+          "https://food.grab.com/vn/vi/restaurant/cheesie-l%C3%AA-lai-delivery/5-C72BC3LUTTU3G2"
+        ],
+        "acceptsReservations": false
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Initial Semantic HTML crawlable by search engine bots prior to client-side hydration -->
+    <div id="root">
+      <header>
+        <p>Cheesie Station · Tuyến Đồ Ngon · 102 Lê Lai, Ninh Kiều, Cần Thơ</p>
+        <nav aria-label="Điều hướng chính">
+          <a href="#menu">Menu nhà Cheesie</a>
+          <a href="#builder">Tự cuốn tacos</a>
+          <a href="#space">Ghé nhà Cheesie</a>
+        </nav>
+      </header>
+
+      <main>
+        <section id="home">
+          <h1>Đói rồi? Cuốn thôi.</h1>
+          <p>
+            Tacos đầy nhân, burger đậm vị, gà giòn rụm. Thích món nào cứ chọn,
+            còn chiếc tacos đúng gu thì bạn tự tay quyết định.
+          </p>
+          <p>
+            Địa chỉ: 102 Đường Lê Lai, Quận Ninh Kiều, TP. Cần Thơ | Hotline:
+            078 878 6283 | Giờ mở cửa: 09:30–22:30
+          </p>
+        </section>
+
+        <section id="menu">
+          <h2>Menu Nhà Cheesie — Mỗi cơn đói. Một món đúng gu.</h2>
+          <p>Tacos, burger, gà giòn, mì Ý… Món nào hợp gu bạn hôm nay?</p>
+          <ul>
+            <li>
+              <strong>Tacos Pháp</strong>: 5 size từ S đến XXL, tự chọn nhân heo,
+              bò, gà, xúc xích và sốt đặc trưng (từ 45.000đ).
+            </li>
+            <li>
+              <strong>Burger bò phô mai</strong>: Bò &amp; phô mai béo ngậy
+              (59.000đ).
+            </li>
+            <li>
+              <strong>Burger gà phô mai</strong>: Nhân gà giòn rụm nhà Cheesie
+              (55.000đ).
+            </li>
+            <li>
+              <strong>Burger bò phô mai bacon</strong>: Bò, phô mai và thêm chút
+              bacon giòn (65.000đ).
+            </li>
+            <li>
+              <strong>Burger gà phô mai bacon</strong>: Gà, phô mai và bacon
+              (60.000đ).
+            </li>
+            <li>
+              <strong>Gà tender 1 sốt (6 viên)</strong>: Phô mai / BBQ / Bơ tỏi
+              mật ong (55.000đ).
+            </li>
+            <li>
+              <strong>Gà tender 2 sốt (9 viên)</strong>: Gà tender giòn rụm tùy
+              chọn sốt (60.000đ).
+            </li>
+            <li>
+              <strong>Gà tender 3 sốt (12 viên)</strong>: Cho cơn đói thật đã
+              (70.000đ).
+            </li>
+            <li>
+              <strong>Khoai truyền thống</strong>: Lắc phô mai, bơ tỏi, nấm
+              Truffle (39.000đ).
+            </li>
+            <li>
+              <strong>Khoai bacon</strong>: Khoai tây giòn với bacon thơm ngậy
+              (49.000đ).
+            </li>
+            <li>
+              <strong>Mì Ý kem Tomyum</strong>: Vị kem Tomyum chua cay béo ngậy
+              độc quyền (60.000đ).
+            </li>
+            <li>
+              <strong>Mì Ý cua phô mai</strong>: Thịt cua ngọt thanh cùng xốt phô
+              mai béo mịn (70.000đ).
+            </li>
+            <li>
+              <strong>Mì Ý bò bằm tiêu đen</strong>: Bò bằm đậm vị xào sốt tiêu
+              đen thơm nồng (60.000đ).
+            </li>
+            <li>
+              <strong>Combo Chicken &amp; Fries</strong>: Gà tender 1 sốt +
+              Khoai truyền thống + 1 Nước ngọt (99.000đ).
+            </li>
+            <li>
+              <strong>Combo Best Seller Nhà Cheesie</strong>: Tacos M + Mì Ý kem
+              Tomyum + 1 Nước ngọt (119.000đ).
+            </li>
+            <li>
+              <strong>Combo Bestie No Nê</strong>: Tacos M + Gà tender 2 sốt +
+              Khoai truyền thống (159.000đ).
+            </li>
+            <li>
+              <strong>Combo Cheesie Signature Mega</strong>: Burger bò + Gà
+              tender 2 sốt + Mì Ý Tomyum + Khoai + Nước (219.000đ).
+            </li>
+            <li>
+              <strong>Combo Cheesie Big Feast</strong>: Đại tiệc 3-4 người gồm
+              Tacos L + Burger bò + Gà tender 3 sốt + Mì Ý Tomyum + Khoai + 2
+              Nước (315.000đ).
+            </li>
+            <li><strong>Nước giải khát</strong>: Pepsi, Pepsi chanh, 7 Up, Nước suối (từ 12.000đ).</li>
+          </ul>
+        </section>
+
+        <section id="builder">
+          <h2>Tự Cuốn Tacos — Chiếc tacos này, bạn làm chủ.</h2>
+          <p>
+            Chọn size, chọn nhân, thêm sốt. Chiếc tacos ngon nhất là chiếc đúng ý
+            bạn.
+          </p>
+        </section>
+
+        <section id="space">
+          <h2>Ghé Cheesie — Một trạm dừng, đủ món ngon.</h2>
+          <p>
+            Địa chỉ: 102 Đường Lê Lai, Phường An Phú, Quận Ninh Kiều, Cần Thơ.
+          </p>
+          <p>Giờ hoạt động: 09:30–22:30 mỗi ngày. Điện thoại: 078 878 6283.</p>
+        </section>
+      </main>
+
+      <footer>
+        <p>© 2026 Cheesie · Design by Daniel</p>
+      </footer>
+    </div>
+
+    <noscript>
+      <div style="padding: 24px; text-align: center; font-family: sans-serif">
+        <p>
+          Trang web Cheesie - Tacos and Burger tại 102 Lê Lai, Ninh Kiều, Cần
+          Thơ. Vui lòng bật JavaScript để trải nghiệm trọn vẹn tính năng đặt món
+          và tự cuốn tacos trực tuyến.
+        </p>
+      </div>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -59,7 +59,7 @@ export const RestaurantInfoModal: React.FC<RestaurantInfoModalProps> = ({
         <p>
           <strong>102 Đ. Lê Lai, Ninh Kiều, Cần Thơ</strong>
           <br />
-          Mở cửa: 9:30–22:30
+          Mở cửa: 09:30–22:30
           <br />
           <a href="tel:0788786283">078 878 6283</a>
           <br />

@@ -1,0 +1,5 @@
+# robots.txt for Cheesie - Tacos and Burger
+User-agent: *
+Allow: /
+
+Sitemap: https://cheesiewebsite.vercel.app/sitemap.xml

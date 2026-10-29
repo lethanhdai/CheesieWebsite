@@ -51,7 +51,7 @@ export const SpaceSection: React.FC<SpaceSectionProps> = ({
         <p className="address">
           102 Lê Lai, Ninh Kiều, Cần Thơ
           <br />
-          9:30–22:30 · <a href="tel:0788786283">078 878 6283</a>
+          09:30–22:30 · <a href="tel:0788786283">078 878 6283</a>
         </p>
         <span className="space-caption">KHÔNG GIAN THẬT TẠI CHEESIE</span>
       </div>
